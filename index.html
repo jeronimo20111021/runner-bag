@@ -5,7 +5,7 @@
     <title>RunnerBag - Corre en la Bolsa</title>
     
     <!-- Logo en la pestaña (favicon) -->
-    <link rel="icon" href="logo.png">
+    <link rel="icon" href="logo.png.png.png">
 
     <style>
         body {
@@ -17,19 +17,42 @@
             background: linear-gradient(135deg, #0f172a, #1e3a8a); /* Azul oscuro a azul intenso */
         }
 
-        /* Logo con contraste */
+        /* Barra de navegación */
+        nav {
+            background-color: #1e3a8a; /* Azul que contrasta */
+            padding: 15px 30px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #93c5fd; /* Azul claro al pasar el mouse */
+        }
+
+        /* Logo esquina (sin brillo) */
         .logo-corner {
             position: absolute;
-            top: 20px;
+            top: 70px; /* debajo de la barra */
             left: 20px;
             width: 70px;
-            filter: drop-shadow(0 0 12px white) drop-shadow(0 0 6px #3b82f6);
             animation: subir 1.2s ease-out;
         }
 
         header {
             text-align: center;
-            padding: 120px 20px;
+            padding: 160px 20px 100px; /* más espacio por la barra */
         }
 
         h1 {
@@ -121,38 +144,9 @@
 </head>
 
 <body>
-<img src="logo.png" class="logo-corner">
 
-<header>
-    <h1>RunnerBag</h1>
-    <p>Corre hacia tu libertad financiera. Aprende a invertir con velocidad y estrategia en la bolsa.</p>
-    <button class="btn" onclick="alert('Próximamente disponible')">
-        Empieza ahora
-    </button>
-</header>
-
-<div class="section">
-    <h2>¿Qué es RunnerBag?</h2>
-    <p>Somos una plataforma que entrena a jóvenes y principiantes para tomar decisiones inteligentes en la bolsa de valores.</p>
-</div>
-
-<div class="section">
-    <h2>Planes</h2>
-    <div class="card-container">
-        <div class="card">
-            <h3>Básico</h3>
-            <p>✔ Introducción a la bolsa<br>✔ Lectura de gráficos<br>✔ Gestión de riesgo</p>
-        </div>
-
-        <div class="card">
-            <h3>Pro</h3>
-            <p>✔ Estrategias avanzadas<br>✔ Análisis técnico<br>✔ Mentorías personalizadas</p>
-        </div>
-    </div>
-</div>
-
-<footer>
-    © 2026 RunnerBag - Todos los derechos reservados | Contacto: info@runnerbag.com
-</footer>
-</body>
-</html>
+<!-- Barra de navegación -->
+<nav>
+    <a href="#">Home</a>
+    <a href="#">IA de Inversión</a>
+    <a href="#">
