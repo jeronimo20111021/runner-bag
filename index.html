@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>RunnerBag - Corre en la Bolsa</title>
-    <link rel="icon" href="logo.png.png.png"> <!-- Usa el nombre real del archivo -->
+
+    <!-- ICONO PESTAÑA -->
+    <link rel="icon" href="logo.png">
 
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
-            height: 100vh;
             color: white;
             overflow-x: hidden;
             background: linear-gradient(135deg, #0f172a, #1e3a8a);
         }
 
-        /* Barra de utilidades */
+        /* Barra superior */
         .util-bar {
             background-color: #0f172a;
             color: #cbd5f5;
@@ -30,21 +31,22 @@
             z-index: 200;
         }
 
-        /* Barra de navegación principal */
+        /* Navbar */
         nav {
             background-color: #1e3a8a;
-            padding: 10px 30px;
+            padding: 12px 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             position: fixed;
-            top: 35px; /* debajo de la barra de utilidades */
+            top: 35px;
             width: 100%;
             z-index: 150;
         }
 
         .logo-nav {
-            height: 40px; /* tamaño del logo dentro del menú */
+            height: 45px;
+            animation: aparecer 1s ease-out;
         }
 
         .menu {
@@ -65,7 +67,7 @@
 
         header {
             text-align: center;
-            padding: 200px 20px 100px; /* espacio extra por las barras */
+            padding: 200px 20px 100px;
         }
 
         h1 {
@@ -131,9 +133,9 @@
             text-align: center;
             font-size: 14px;
             color: #94a3b8;
-            animation: subir 2.5s ease-out;
         }
 
+        /* Animaciones */
         @keyframes subir {
             from {
                 opacity: 0;
@@ -144,19 +146,71 @@
                 transform: translateY(0);
             }
         }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
+
 <body>
 
-<!-- Barra de utilidades -->
+<!-- Barra superior -->
 <div class="util-bar">
-    <span>📞 Contacto: info@runnerbag.com</span>
-    <span>🌙 Modo Oscuro</span>
+    <span>📞 info@runnerbag.com</span>
     <span>🔍 Buscar</span>
 </div>
 
-<!-- Barra de navegación con logo -->
+<!-- NAVBAR CON LOGO -->
 <nav>
-    <img src="logo.png.png.png" class="logo-nav"> <!-- Aquí también el nombre real -->
+    <img src="logo.png" class="logo-nav">
+    
     <div class="menu">
-        <a href="#">
+        <a href="#">Home</a>
+        <a href="#">IA de Inversión</a>
+        <a href="#">Cursos</a>
+        <a href="#">Ayuda</a>
+    </div>
+</nav>
+
+<header>
+    <h1>RunnerBag</h1>
+    <p>Corre hacia tu libertad financiera. Aprende a invertir con estrategia.</p>
+
+    <button class="btn">Empieza ahora</button>
+</header>
+
+<div class="section">
+    <h2>¿Qué es RunnerBag?</h2>
+    <p>Aprende a tomar decisiones inteligentes con tu dinero desde joven.</p>
+</div>
+
+<div class="section">
+    <h2>Planes</h2>
+
+    <div class="card-container">
+        <div class="card">
+            <h3>Básico</h3>
+            <p>✔ Fundamentos<br>✔ Gráficos<br>✔ Riesgo</p>
+        </div>
+
+        <div class="card">
+            <h3>Pro</h3>
+            <p>✔ Estrategias<br>✔ Análisis<br>✔ Mentoría</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    © 2026 RunnerBag
+</footer>
+
+</body>
+</html>
