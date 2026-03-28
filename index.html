@@ -2,10 +2,6 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-
-    <!-- 🔥 VERIFICACIÓN GOOGLE -->
-    <meta name="google-site-verification" content="google-site-verification: googlead06d07645e904f0.html" />
-
     <title>RunnerBag</title>
 
     <!-- RESPONSIVE -->
@@ -22,7 +18,7 @@
             background: linear-gradient(135deg, #0f172a, #1e3a8a);
         }
 
-        /* BARRA SUPERIOR */
+        /* 🔝 BARRA SUPERIOR */
         .util-bar {
             background: #020617;
             padding: 8px 20px;
@@ -37,7 +33,7 @@
             z-index: 200;
         }
 
-        /* NAVBAR */
+        /* 🧭 NAVBAR */
         nav {
             background: rgba(30, 58, 138, 0.95);
             backdrop-filter: blur(10px);
@@ -79,14 +75,16 @@
             color: #60a5fa;
         }
 
+        /* 🎯 HEADER */
         header {
             text-align: center;
             padding: 220px 20px 80px;
         }
 
         h1 {
-            font-size: 50px;
+            font-size: 55px;
             margin-bottom: 10px;
+            animation: subir 1s ease-out;
         }
 
         p {
@@ -94,6 +92,7 @@
             font-size: 18px;
             max-width: 600px;
             margin: auto;
+            animation: subir 1.5s ease-out;
         }
 
         .btn {
@@ -106,6 +105,7 @@
             cursor: pointer;
             margin-top: 30px;
             transition: 0.3s;
+            animation: subir 2s ease-out;
         }
 
         .btn:hover {
@@ -113,8 +113,9 @@
             transform: scale(1.05);
         }
 
+        /* 📦 SECCIONES */
         .section {
-            padding: 60px 20px;
+            padding: 70px 20px;
             text-align: center;
         }
 
@@ -140,6 +141,7 @@
             width: 260px;
             backdrop-filter: blur(10px);
             transition: 0.3s;
+            animation: subir 2s ease-out;
         }
 
         .card:hover {
@@ -151,6 +153,18 @@
             padding: 25px;
             text-align: center;
             color: #94a3b8;
+        }
+
+        /* 🔥 ANIMACIÓN */
+        @keyframes subir {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* 📱 RESPONSIVE */
@@ -166,15 +180,15 @@
                 top: 60px;
             }
 
-            .menu {
-                flex-direction: column;
-                gap: 10px;
-                align-items: center;
-                margin-top: 10px;
-            }
-
             .nav-container {
                 flex-direction: column;
+            }
+
+            .menu {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                margin-top: 10px;
             }
 
             header {
@@ -194,16 +208,15 @@
 
 <body>
 
-<!-- BARRA SUPERIOR -->
+<!-- 🔝 BARRA -->
 <div class="util-bar">
     <span>📞 +57 000 000 000</span>
     <span>📧 info@runnerbag.com</span>
 </div>
 
-<!-- NAVBAR -->
+<!-- 🧭 NAV -->
 <nav>
     <div class="nav-container">
-
         <img src="logo.png.png.png" class="logo-nav">
 
         <div class="menu">
@@ -212,11 +225,10 @@
             <a href="#">Cursos</a>
             <a href="#">Ayuda</a>
         </div>
-
     </div>
 </nav>
 
-<!-- HEADER -->
+<!-- 🎯 HEADER -->
 <header>
     <h1>RunnerBag</h1>
     <p>Corre hacia tu libertad financiera. Aprende a invertir con estrategia.</p>
@@ -250,15 +262,14 @@
 <div class="section">
     <h2>Regístrate</h2>
 
-    <input type="text" placeholder="Nombre" id="nombre"><br>
-    <input type="email" placeholder="Correo" id="correo"><br>
+    <input type="text" id="nombre" placeholder="Nombre"><br>
+    <input type="email" id="correo" placeholder="Correo"><br>
 
     <button class="btn" onclick="registrar()">Crear cuenta</button>
 
     <p id="mensaje"></p>
 </div>
 
-<!-- SCRIPT -->
 <script>
 function registrar() {
     let nombre = document.getElementById("nombre").value;
@@ -270,12 +281,10 @@ function registrar() {
     }
 
     localStorage.setItem("usuario", nombre);
-
     document.getElementById("mensaje").innerText = "Registro exitoso 🚀";
 }
 </script>
 
-<!-- FOOTER -->
 <footer>
     © 2026 RunnerBag
 </footer>
