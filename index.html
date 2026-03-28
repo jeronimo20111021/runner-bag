@@ -18,7 +18,6 @@
             background: linear-gradient(135deg, #0f172a, #1e3a8a);
         }
 
-        /* 🔝 BARRA SUPERIOR */
         .util-bar {
             background: #020617;
             padding: 8px 20px;
@@ -33,7 +32,6 @@
             z-index: 200;
         }
 
-        /* 🧭 NAVBAR */
         nav {
             background: rgba(30, 58, 138, 0.95);
             backdrop-filter: blur(10px);
@@ -75,7 +73,6 @@
             color: #60a5fa;
         }
 
-        /* 🎯 HEADER */
         header {
             text-align: center;
             padding: 220px 20px 80px;
@@ -113,7 +110,6 @@
             transform: scale(1.05);
         }
 
-        /* 📦 SECCIONES */
         .section {
             padding: 70px 20px;
             text-align: center;
@@ -155,7 +151,6 @@
             color: #94a3b8;
         }
 
-        /* 🔥 ANIMACIÓN */
         @keyframes subir {
             from {
                 opacity: 0;
@@ -167,9 +162,7 @@
             }
         }
 
-        /* 📱 RESPONSIVE */
         @media (max-width: 768px) {
-
             .util-bar {
                 flex-direction: column;
                 gap: 5px;
@@ -208,17 +201,14 @@
 
 <body>
 
-<!-- 🔝 BARRA -->
 <div class="util-bar">
     <span>📞 +57 000 000 000</span>
     <span>📧 info@runnerbag.com</span>
 </div>
 
-<!-- 🧭 NAV -->
 <nav>
     <div class="nav-container">
         <img src="logo.png.png.png" class="logo-nav">
-
         <div class="menu">
             <a href="#">Home</a>
             <a href="#">IA</a>
@@ -228,29 +218,24 @@
     </div>
 </nav>
 
-<!-- 🎯 HEADER -->
 <header>
     <h1>RunnerBag</h1>
     <p>Corre hacia tu libertad financiera. Aprende a invertir con estrategia.</p>
     <button class="btn">Empieza ahora</button>
 </header>
 
-<!-- INFO -->
 <div class="section">
     <h2>¿Qué es RunnerBag?</h2>
     <p>Aprende a tomar decisiones inteligentes con tu dinero desde joven.</p>
 </div>
 
-<!-- PLANES -->
 <div class="section">
     <h2>Planes</h2>
-
     <div class="card-container">
         <div class="card">
             <h3>Básico</h3>
             <p>✔ Fundamentos<br>✔ Gráficos<br>✔ Riesgo</p>
         </div>
-
         <div class="card">
             <h3>Pro</h3>
             <p>✔ Estrategias<br>✔ Análisis<br>✔ Mentoría</p>
@@ -258,20 +243,16 @@
     </div>
 </div>
 
-<!-- REGISTRO -->
 <div class="section">
     <h2>Regístrate</h2>
-
     <input type="text" id="nombre" placeholder="Nombre"><br>
     <input type="email" id="correo" placeholder="Correo"><br>
-
     <button class="btn" onclick="registrar()">Crear cuenta</button>
-
     <p id="mensaje"></p>
 </div>
 
 <script>
-function registrar() {
+async function registrar() {
     let nombre = document.getElementById("nombre").value;
     let correo = document.getElementById("correo").value;
 
@@ -280,8 +261,18 @@ function registrar() {
         return;
     }
 
-    localStorage.setItem("usuario", nombre);
-    document.getElementById("mensaje").innerText = "Registro exitoso 🚀";
+    try {
+        const respuesta = await fetch("https://runnerbag-production.up.railway.app/predict", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nombre, correo })
+        });
+
+        const datos = await respuesta.json();
+        document.getElementById("mensaje").innerText = "Servidor respondió: " + JSON.stringify(datos);
+    } catch (error) {
+        document.getElementById("mensaje").innerText = "Error al conectar con el backend ❌";
+    }
 }
 </script>
 
@@ -291,3 +282,4 @@ function registrar() {
 
 </body>
 </html>
+
