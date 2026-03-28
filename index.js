@@ -6,14 +6,12 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Configuración de tu correo Gmail
-// ⚠️ IMPORTANTE: Debes generar una "contraseña de aplicación" en tu cuenta de Google.
-// No uses tu contraseña normal, usa la contraseña de aplicación.
+// Configuración de tu correo Gmail con contraseña de aplicación
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: "rockyboxeador25@gmail.com",   // tu correo
-    pass: "TU_APP_PASSWORD"              // tu contraseña de aplicación
+    pass: "hjmp xoxg sgip qqgd"          // tu contraseña de aplicación
   }
 });
 
