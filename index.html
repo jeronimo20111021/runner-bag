@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>RunnerBag - Corre en la Bolsa</title>
+    <title>RunnerBag</title>
 
-    <!-- ICONO PESTAÑA -->
+    <!-- Favicon -->
     <link rel="icon" href="logo.png.png.png">
 
     <style>
@@ -12,62 +12,69 @@
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             color: white;
-            overflow-x: hidden;
             background: linear-gradient(135deg, #0f172a, #1e3a8a);
         }
 
-        /* Barra superior */
+        /* BARRA SUPERIOR */
         .util-bar {
-            background-color: #0f172a;
-            color: #cbd5f5;
+            background: #020617;
             padding: 8px 20px;
             display: flex;
             justify-content: flex-end;
             gap: 20px;
-            font-size: 14px;
+            font-size: 13px;
+            color: #94a3b8;
             position: fixed;
-            top: 0;
             width: 100%;
+            top: 0;
             z-index: 200;
         }
 
-        /* Navbar */
+        /* NAVBAR */
         nav {
-            background-color: #1e3a8a;
-            padding: 12px 30px;
+            background: rgba(30, 58, 138, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 12px 40px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             position: fixed;
-            top: 35px;
+            top: 30px;
             width: 100%;
             z-index: 150;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .logo-nav {
             height: 45px;
-            animation: aparecer 1s ease-out;
         }
 
         .menu {
             display: flex;
-            gap: 40px;
+            gap: 30px;
         }
 
         .menu a {
-            color: white;
+            color: #e0f2fe;
             text-decoration: none;
             font-weight: bold;
-            transition: color 0.3s;
+            transition: 0.3s;
         }
 
         .menu a:hover {
-            color: #93c5fd;
+            color: #60a5fa;
         }
 
         header {
             text-align: center;
-            padding: 200px 20px 100px;
+            padding: 220px 20px 100px;
         }
 
         h1 {
@@ -93,17 +100,25 @@
             border-radius: 10px;
             cursor: pointer;
             margin-top: 30px;
-            transition: background 0.3s;
-            animation: subir 2s ease-out;
+            transition: 0.3s;
         }
 
         .btn:hover {
             background: #2563eb;
+            transform: scale(1.05);
         }
 
         .section {
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
+        }
+
+        input {
+            padding: 12px;
+            width: 250px;
+            border-radius: 8px;
+            border: none;
+            margin-top: 10px;
         }
 
         .card-container {
@@ -119,8 +134,7 @@
             border-radius: 12px;
             width: 280px;
             backdrop-filter: blur(10px);
-            transition: transform 0.3s;
-            animation: subir 2s ease-out;
+            transition: 0.3s;
         }
 
         .card:hover {
@@ -128,29 +142,16 @@
         }
 
         footer {
-            background: rgba(15,23,42,0.9);
+            background: #020617;
             padding: 30px;
             text-align: center;
-            font-size: 14px;
             color: #94a3b8;
         }
 
-        /* Animaciones */
         @keyframes subir {
             from {
                 opacity: 0;
                 transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes aparecer {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -162,36 +163,41 @@
 
 <body>
 
-<!-- Barra superior -->
+<!-- BARRA SUPERIOR -->
 <div class="util-bar">
     <span>📞 info@runnerbag.com</span>
-    <span>🔍 Buscar</span>
 </div>
 
-<!-- NAVBAR CON LOGO -->
+<!-- NAVBAR -->
 <nav>
-    <img src="logo.png.png.png" class="logo-nav">
-    
-    <div class="menu">
-        <a href="#">Home</a>
-        <a href="#">IA de Inversión</a>
-        <a href="#">Cursos</a>
-        <a href="#">Ayuda</a>
+    <div class="nav-container">
+
+        <img src="logo.png.png.png" class="logo-nav">
+
+        <div class="menu">
+            <a href="#">Home</a>
+            <a href="#">IA</a>
+            <a href="#">Cursos</a>
+            <a href="#">Ayuda</a>
+        </div>
+
     </div>
 </nav>
 
+<!-- HEADER -->
 <header>
     <h1>RunnerBag</h1>
     <p>Corre hacia tu libertad financiera. Aprende a invertir con estrategia.</p>
-
     <button class="btn">Empieza ahora</button>
 </header>
 
+<!-- INFO -->
 <div class="section">
     <h2>¿Qué es RunnerBag?</h2>
     <p>Aprende a tomar decisiones inteligentes con tu dinero desde joven.</p>
 </div>
 
+<!-- PLANES -->
 <div class="section">
     <h2>Planes</h2>
 
@@ -208,6 +214,36 @@
     </div>
 </div>
 
+<!-- REGISTRO -->
+<div class="section">
+    <h2>Regístrate</h2>
+
+    <input type="text" placeholder="Nombre" id="nombre"><br>
+    <input type="email" placeholder="Correo" id="correo"><br>
+
+    <button class="btn" onclick="registrar()">Crear cuenta</button>
+
+    <p id="mensaje"></p>
+</div>
+
+<!-- SCRIPT -->
+<script>
+function registrar() {
+    let nombre = document.getElementById("nombre").value;
+    let correo = document.getElementById("correo").value;
+
+    if(nombre === "" || correo === "") {
+        document.getElementById("mensaje").innerText = "Completa todos los campos";
+        return;
+    }
+
+    localStorage.setItem("usuario", nombre);
+
+    document.getElementById("mensaje").innerText = "Registro exitoso 🚀";
+}
+</script>
+
+<!-- FOOTER -->
 <footer>
     © 2026 RunnerBag
 </footer>
