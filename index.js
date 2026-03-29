@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Ruta raíz para que no salga "Cannot GET /"
+// Ruta raíz para mostrar mensaje en vez de "Cannot GET /"
 app.get("/", (req, res) => {
   res.send("Backend de RunnerBag funcionando ✅");
 });
