@@ -262,7 +262,7 @@ async function registrar() {
     }
 
     try {
-        const respuesta = await fetch("https://runnerbag-production.up.railway.app/predict", {
+        const respuesta = await fetch("https://runner-bag-production.up.railway.app/predict", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ nombre, correo })
@@ -282,4 +282,3 @@ async function registrar() {
 
 </body>
 </html>
-
