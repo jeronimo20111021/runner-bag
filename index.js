@@ -15,6 +15,11 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+// Ruta raíz para que no salga "Cannot GET /"
+app.get("/", (req, res) => {
+  res.send("Backend de RunnerBag funcionando ✅");
+});
+
 // Endpoint para recibir registros desde tu frontend
 app.post("/predict", async (req, res) => {
   const { nombre, correo } = req.body;
