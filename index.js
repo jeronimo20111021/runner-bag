@@ -42,4 +42,6 @@ app.post("/predict", async (req, res) => {
   }
 });
 
-//
+// Puerto Railway
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
