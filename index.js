@@ -37,11 +37,13 @@ app.post("/predict", async (req, res) => {
 
     res.json({ mensaje: "Registro recibido y correo enviado ✅" });
   } catch (error) {
-    console.error(error);
+    console.error("Error al enviar correo:", error);
     res.status(500).json({ error: "Error al enviar correo ❌" });
   }
 });
 
 // Puerto Railway
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
+});
