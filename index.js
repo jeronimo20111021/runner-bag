@@ -21,10 +21,10 @@ app.post("/predict", async (req, res) => {
   const { nombre, correo } = req.body;
 
   try {
-    // IMPORTANTE: el remitente debe ser un correo verificado en MailerSend
-    const sentFrom = new Sender("tu-correo-verificado@tudominio.com", "RunnerBag");
+    // IMPORTANTE: usa tu Gmail verificado en MailerSend
+    const sentFrom = new Sender("rockyboxeador25@gmail.com", "RunnerBag");
 
-    // Destinatario: tu propio correo para recibir las notificaciones
+    // Destinatario: tu propio Gmail para recibir notificaciones
     const recipients = [new Recipient("rockyboxeador25@gmail.com", "Rocky")];
 
     const emailParams = new EmailParams()
@@ -42,6 +42,4 @@ app.post("/predict", async (req, res) => {
   }
 });
 
-// Puerto Railway
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
+//
