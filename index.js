@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 
-// IMPORTANTE: import correcto
+// Import correcto de MailerSend
 const MailerSend = require("mailersend").default;
 const { EmailParams, Sender, Recipient } = require("mailersend");
 
@@ -11,7 +11,7 @@ app.use(cors());
 
 const PORT = process.env.PORT || 8080;
 
-// Verificación básica
+// Verificar API KEY
 if (!process.env.MAILERSEND_API_KEY) {
   console.log("⚠️ Falta MAILERSEND_API_KEY");
 }
@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
   res.send("Backend de RunnerBag funcionando ✅");
 });
 
-// Registro + envío de correo
+// Endpoint de registro
 app.post("/predict", async (req, res) => {
   const { nombre, correo } = req.body;
 
