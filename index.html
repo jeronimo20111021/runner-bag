@@ -1,353 +1,278 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>RunnerBag</title>
+<meta charset="UTF-8">
+<title>RunnerBag</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- RESPONSIVE -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+}
 
-    <!-- ICONO -->
-    <link rel="icon" href="logo.png.png.png">
+nav {
+    background: rgba(30, 58, 138, 0.95);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10;
+}
 
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
+.menu a {
+    color: #e0f2fe;
+    margin: 10px;
+    cursor: pointer;
+}
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            color: white;
-            background: linear-gradient(135deg, #0f172a, #1e3a8a);
-        }
+.pantalla {
+    display: none;
+    min-height: 100vh;
+    padding: 120px 40px 60px;
+}
 
-        .util-bar {
-            background: #020617;
-            padding: 8px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 13px;
-            color: #94a3b8;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 200;
-        }
+.activa {
+    display: block;
+}
 
-        nav {
-            background: rgba(30, 58, 138, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 12px 20px;
-            display: flex;
-            justify-content: center;
-            position: fixed;
-            top: 30px;
-            width: 100%;
-            z-index: 150;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
-        }
+.hero {
+    text-align: center;
+    margin-bottom: 80px;
+}
 
-        .nav-container {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.hero h1 {
+    font-size: 55px;
+}
 
-        .logo-nav {
-            height: 45px;
-        }
+.hero p {
+    font-size: 20px;
+    color: #cbd5f5;
+}
 
-        .menu {
-            display: flex;
-            gap: 25px;
-        }
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 30px;
+    max-width: 1000px;
+    margin: auto;
+}
 
-        .menu a {
-            color: #e0f2fe;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
+.info-box {
+    background: rgba(255,255,255,0.08);
+    padding: 25px;
+    border-radius: 12px;
+}
 
-        .menu a:hover {
-            color: #60a5fa;
-        }
+.btn {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border: none;
+    padding: 15px 30px;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
 
-        header {
-            text-align: center;
-            padding: 220px 20px 80px;
-        }
+.btn:hover {
+    transform: scale(1.05);
+}
 
-        h1 {
-            font-size: 55px;
-            margin-bottom: 10px;
-            animation: subir 1s ease-out;
-        }
+input {
+    padding: 12px;
+    width: 260px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 10px;
+}
 
-        p {
-            color: #cbd5f5;
-            font-size: 18px;
-            max-width: 600px;
-            margin: auto;
-            animation: subir 1.5s ease-out;
-        }
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
 
-        .btn {
-            background: #3b82f6;
-            border: none;
-            padding: 15px 35px;
-            color: white;
-            font-size: 18px;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: 0.3s;
-            animation: subir 2s ease-out;
-        }
+.card {
+    background: rgba(255,255,255,0.08);
+    padding: 25px;
+    border-radius: 16px;
+    width: 260px;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-        .btn:hover {
-            background: #2563eb;
-            transform: scale(1.05);
-        }
-
-        .section {
-            padding: 70px 20px;
-            text-align: center;
-        }
-
-        input {
-            padding: 12px;
-            width: 250px;
-            border-radius: 8px;
-            border: none;
-            margin-top: 10px;
-        }
-
-        .card-container {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            flex-wrap: wrap;
-        }
-
-        .card {
-            background: rgba(255,255,255,0.08);
-            padding: 25px;
-            border-radius: 12px;
-            width: 260px;
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
-            animation: subir 2s ease-out;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-        }
-
-        .card p {
-            font-size: 15px;
-            line-height: 1.7;
-        }
-
-        footer {
-            background: #020617;
-            padding: 25px;
-            text-align: center;
-            color: #94a3b8;
-        }
-
-        #mensaje {
-            min-height: 24px;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        .mini-texto {
-            max-width: 720px;
-            margin-top: 12px;
-            font-size: 16px;
-            color: #dbeafe;
-        }
-
-        @keyframes subir {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .util-bar {
-                flex-direction: column;
-                gap: 5px;
-                text-align: center;
-            }
-
-            nav {
-                top: 60px;
-            }
-
-            .nav-container {
-                flex-direction: column;
-            }
-
-            .menu {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-                margin-top: 10px;
-            }
-
-            header {
-                padding: 260px 20px 60px;
-            }
-
-            h1 {
-                font-size: 35px;
-            }
-
-            input {
-                width: 80%;
-            }
-        }
-    </style>
+.card:hover {
+    transform: translateY(-10px);
+}
+</style>
 </head>
 
 <body>
 
-<div class="util-bar">
-    <span>📞 +57 000 000 000</span>
-    <span>📧 info@runnerbag.com</span>
-</div>
-
 <nav>
-    <div class="nav-container">
-        <img src="logo.png.png.png" class="logo-nav" alt="RunnerBag">
-        <div class="menu">
-            <a href="#inicio">Home</a>
-            <a href="#que-es">IA</a>
-            <a href="#planes">Cursos</a>
-            <a href="#registro">Ayuda</a>
-        </div>
+    <b>RunnerBag</b>
+    <div class="menu">
+        <a onclick="ir('inicio')">Home</a>
+        <a onclick="ir('ia')">IA</a>
+        <a onclick="ir('planes')">Cursos</a>
+        <a onclick="ir('registro')">Ayuda</a>
     </div>
 </nav>
 
-<header id="inicio">
-    <h1>RunnerBag</h1>
-    <p>Corre hacia tu libertad financiera. Aprende a invertir con estrategia.</p>
-    <button class="btn" type="button" onclick="irA('que-es')">Empieza ahora</button>
-</header>
+<!-- HOME -->
+<div id="inicio" class="pantalla activa">
+    <div class="hero">
+        <h1>RunnerBag</h1>
+        <p>Corre hacia tu libertad financiera con inteligencia.</p>
+        <button class="btn" onclick="ir('planes')">Empieza ahora</button>
+    </div>
 
-<div class="section" id="que-es">
-    <h2>¿Qué es RunnerBag?</h2>
-    <p>
-        Aprende a tomar decisiones inteligentes con tu dinero desde joven.
-        La versión gratis te da consejos y simulaciones que podrían ayudarte a entender mejor el mercado.
-        La versión Pro te da un análisis más directo para decidir con más claridad qué revisar antes de invertir.
-    </p>
-    <p class="mini-texto">
-        La idea es que vayas paso a paso: primero entiendes, luego comparas y después decides.
-    </p>
+    <div class="info-grid">
+        <div class="info-box"><h3>Aprende desde cero</h3></div>
+        <div class="info-box"><h3>IA integrada</h3></div>
+        <div class="info-box"><h3>Evita errores</h3></div>
+        <div class="info-box"><h3>Crecimiento real</h3></div>
+    </div>
 </div>
 
-<div class="section" id="planes">
-    <h2>Planes</h2>
+<!-- PLANES -->
+<div id="planes" class="pantalla">
+    <h1>Planes</h1>
+
     <div class="card-container">
-        <div class="card">
+        <div class="card" onclick="seleccionarPlan('gratis')">
             <h3>Gratis</h3>
-            <p>✔ Consejos básicos<br>✔ Simulaciones<br>✔ Ideas para aprender</p>
+            <p>IA básica<br>5 consultas</p>
         </div>
-        <div class="card">
+
+        <div class="card" onclick="seleccionarPlan('pro')">
             <h3>Pro</h3>
-            <p>✔ Análisis más directo<br>✔ Señales más claras<br>✔ Más acompañamiento</p>
+            <p>IA ilimitada<br>Mejor análisis</p>
+        </div>
+
+        <div class="card" onclick="seleccionarPlan('plus')">
+            <h3>Plus</h3>
+            <p>IA + asesor<br>Seguimiento</p>
         </div>
     </div>
 </div>
 
-<div class="section" id="registro">
-    <h2>Regístrate</h2>
-    <input type="text" id="nombre" placeholder="Nombre"><br>
-    <input type="email" id="correo" placeholder="Correo"><br>
-    <button class="btn" type="button" onclick="registrar()">Crear cuenta</button>
+<!-- PRODUCTOS -->
+<div id="productoPro" class="pantalla">
+    <h1>Plan Pro</h1>
+    <button class="btn" onclick="comprar('pro')">Comprar</button>
+</div>
+
+<div id="productoPlus" class="pantalla">
+    <h1>Plan Plus</h1>
+    <button class="btn" onclick="comprar('plus')">Comprar</button>
+</div>
+
+<!-- IA PRO -->
+<div id="ia" class="pantalla">
+
+    <div style="max-width: 700px; margin: auto; text-align: center;">
+
+        <h1 style="font-size: 42px;">Asistente RunnerBag</h1>
+        <p style="color:#cbd5f5;">Pregunta lo que quieras sobre inversión</p>
+
+        <div style="
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+        ">
+
+            <input id="preguntaIA"
+                placeholder="Ej: ¿Cómo empiezo a invertir?"
+                style="width: 100%; padding: 18px; border-radius: 12px; border: none;">
+
+            <button onclick="responderIA()"
+                style="width: 100%; padding: 15px; border-radius: 12px; border:none;
+                background: linear-gradient(135deg,#3b82f6,#2563eb); color:white;">
+                Consultar IA
+            </button>
+
+            <div id="respuestaIA" style="margin-top:20px;"></div>
+
+        </div>
+
+        <div style="margin-top: 20px;">
+            <span onclick="preguntaRapida('invertir')" style="cursor:pointer;">Invertir</span> |
+            <span onclick="preguntaRapida('riesgo')" style="cursor:pointer;">Riesgo</span> |
+            <span onclick="preguntaRapida('cripto')" style="cursor:pointer;">Cripto</span>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- REGISTRO -->
+<div id="registro" class="pantalla">
+    <h1>Regístrate</h1>
+
+    <input id="nombre" placeholder="Nombre"><br>
+    <input id="correo" placeholder="Correo"><br>
+
+    <button class="btn" onclick="registrar()">Crear cuenta</button>
     <p id="mensaje"></p>
 </div>
 
-<footer>
-    © 2026 RunnerBag
-</footer>
-
 <script>
-function irA(id) {
-    const seccion = document.getElementById(id);
-    if (seccion) {
-        seccion.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+function ir(p) {
+    document.querySelectorAll(".pantalla").forEach(x => x.classList.remove("activa"));
+    document.getElementById(p).classList.add("activa");
 }
 
-function guardarLocal(nombre, correo) {
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    usuarios.push({
-        nombre,
-        correo,
-        fecha: new Date().toISOString()
-    });
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+function seleccionarPlan(plan) {
+    localStorage.setItem("plan", plan);
+
+    if(plan === "gratis") ir("ia");
+    if(plan === "pro") ir("productoPro");
+    if(plan === "plus") ir("productoPlus");
 }
 
-function setMensaje(texto, color) {
-    const mensaje = document.getElementById("mensaje");
-    mensaje.innerText = texto;
-    mensaje.style.color = color;
+function comprar(tipo) {
+    localStorage.setItem("plan", tipo);
+    ir("ia");
 }
 
-async function registrar() {
-    const nombre = document.getElementById("nombre").value.trim();
-    const correo = document.getElementById("correo").value.trim();
+function preguntaRapida(t) {
+    document.getElementById("preguntaIA").value = t;
+    responderIA();
+}
 
-    if (nombre === "" || correo === "") {
-        setMensaje("Completa todos los campos", "orange");
+function responderIA() {
+    let plan = localStorage.getItem("plan") || "gratis";
+    let r = "";
+
+    if(plan === "gratis") r = "Aprende primero antes de invertir.";
+    if(plan === "pro") r = "Considera ETFs y diversificación.";
+    if(plan === "plus") r = "Un asesor analizaría tu perfil.";
+
+    document.getElementById("respuestaIA").innerText = "Pensando...";
+
+    setTimeout(() => {
+        document.getElementById("respuestaIA").innerText = r;
+    }, 600);
+}
+
+function registrar() {
+    let n = nombre.value;
+    let c = correo.value;
+
+    if(n === "" || c === "") {
+        mensaje.innerText = "Completa todo";
         return;
     }
 
-    setMensaje("Enviando...", "white");
-
-    try {
-        const respuesta = await fetch("https://runner-bag-production.up.railway.app/predict", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nombre, correo })
-        });
-
-        if (!respuesta.ok) {
-            throw new Error("El servidor respondió con error");
-        }
-
-        const datos = await respuesta.json();
-
-        guardarLocal(nombre, correo);
-        setMensaje("Registro exitoso ✅", "lightgreen");
-
-        document.getElementById("nombre").value = "";
-        document.getElementById("correo").value = "";
-
-        console.log("Respuesta del servidor:", datos);
-    } catch (error) {
-        guardarLocal(nombre, correo);
-        setMensaje("Guardado localmente ⚡", "yellow");
-
-        document.getElementById("nombre").value = "";
-        document.getElementById("correo").value = "";
-
-        console.error("Error al conectar con el backend:", error);
-    }
+    ir("inicio");
 }
 </script>
 
