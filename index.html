@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>RunnerBag</title>
+
+<!-- ICONO CON TU NOMBRE REAL -->
+<link rel="icon" type="image/png" href="logo.png.png.png">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -163,18 +167,7 @@ input {
     </div>
 </div>
 
-<!-- PRODUCTOS -->
-<div id="productoPro" class="pantalla">
-    <h1>Plan Pro</h1>
-    <button class="btn" onclick="comprar('pro')">Comprar</button>
-</div>
-
-<div id="productoPlus" class="pantalla">
-    <h1>Plan Plus</h1>
-    <button class="btn" onclick="comprar('plus')">Comprar</button>
-</div>
-
-<!-- IA PRO -->
+<!-- IA MEJORADA -->
 <div id="ia" class="pantalla">
 
     <div style="max-width: 700px; margin: auto; text-align: center;">
@@ -232,14 +225,6 @@ function ir(p) {
 
 function seleccionarPlan(plan) {
     localStorage.setItem("plan", plan);
-
-    if(plan === "gratis") ir("ia");
-    if(plan === "pro") ir("productoPro");
-    if(plan === "plus") ir("productoPlus");
-}
-
-function comprar(tipo) {
-    localStorage.setItem("plan", tipo);
     ir("ia");
 }
 
@@ -252,7 +237,7 @@ function responderIA() {
     let plan = localStorage.getItem("plan") || "gratis";
     let r = "";
 
-    if(plan === "gratis") r = "Aprende primero antes de invertir.";
+    if(plan === "gratis") r = "Empieza aprendiendo antes de invertir.";
     if(plan === "pro") r = "Considera ETFs y diversificación.";
     if(plan === "plus") r = "Un asesor analizaría tu perfil.";
 
