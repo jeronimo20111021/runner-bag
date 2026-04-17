@@ -11,6 +11,10 @@
     <link rel="icon" href="logo.png.png.png">
 
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
@@ -144,11 +148,29 @@
             transform: translateY(-10px);
         }
 
+        .card p {
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
         footer {
             background: #020617;
             padding: 25px;
             text-align: center;
             color: #94a3b8;
+        }
+
+        #mensaje {
+            min-height: 24px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .mini-texto {
+            max-width: 720px;
+            margin-top: 12px;
+            font-size: 16px;
+            color: #dbeafe;
         }
 
         @keyframes subir {
@@ -208,58 +230,94 @@
 
 <nav>
     <div class="nav-container">
-        <img src="logo.png.png.png" class="logo-nav">
+        <img src="logo.png.png.png" class="logo-nav" alt="RunnerBag">
         <div class="menu">
-            <a href="#">Home</a>
-            <a href="#">IA</a>
-            <a href="#">Cursos</a>
-            <a href="#">Ayuda</a>
+            <a href="#inicio">Home</a>
+            <a href="#que-es">IA</a>
+            <a href="#planes">Cursos</a>
+            <a href="#registro">Ayuda</a>
         </div>
     </div>
 </nav>
 
-<header>
+<header id="inicio">
     <h1>RunnerBag</h1>
     <p>Corre hacia tu libertad financiera. Aprende a invertir con estrategia.</p>
-    <button class="btn">Empieza ahora</button>
+    <button class="btn" type="button" onclick="irA('que-es')">Empieza ahora</button>
 </header>
 
-<div class="section">
+<div class="section" id="que-es">
     <h2>¿Qué es RunnerBag?</h2>
-    <p>Aprende a tomar decisiones inteligentes con tu dinero desde joven.</p>
+    <p>
+        Aprende a tomar decisiones inteligentes con tu dinero desde joven.
+        La versión gratis te da consejos y simulaciones que podrían ayudarte a entender mejor el mercado.
+        La versión Pro te da un análisis más directo para decidir con más claridad qué revisar antes de invertir.
+    </p>
+    <p class="mini-texto">
+        La idea es que vayas paso a paso: primero entiendes, luego comparas y después decides.
+    </p>
 </div>
 
-<div class="section">
+<div class="section" id="planes">
     <h2>Planes</h2>
     <div class="card-container">
         <div class="card">
-            <h3>Básico</h3>
-            <p>✔ Fundamentos<br>✔ Gráficos<br>✔ Riesgo</p>
+            <h3>Gratis</h3>
+            <p>✔ Consejos básicos<br>✔ Simulaciones<br>✔ Ideas para aprender</p>
         </div>
         <div class="card">
             <h3>Pro</h3>
-            <p>✔ Estrategias<br>✔ Análisis<br>✔ Mentoría</p>
+            <p>✔ Análisis más directo<br>✔ Señales más claras<br>✔ Más acompañamiento</p>
         </div>
     </div>
 </div>
 
-<div class="section">
+<div class="section" id="registro">
     <h2>Regístrate</h2>
     <input type="text" id="nombre" placeholder="Nombre"><br>
     <input type="email" id="correo" placeholder="Correo"><br>
-    <button class="btn" onclick="registrar()">Crear cuenta</button>
+    <button class="btn" type="button" onclick="registrar()">Crear cuenta</button>
     <p id="mensaje"></p>
 </div>
 
-<script>
-async function registrar() {
-    let nombre = document.getElementById("nombre").value;
-    let correo = document.getElementById("correo").value;
+<footer>
+    © 2026 RunnerBag
+</footer>
 
-    if(nombre === "" || correo === "") {
-        document.getElementById("mensaje").innerText = "Completa todos los campos";
+<script>
+function irA(id) {
+    const seccion = document.getElementById(id);
+    if (seccion) {
+        seccion.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}
+
+function guardarLocal(nombre, correo) {
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    usuarios.push({
+        nombre,
+        correo,
+        fecha: new Date().toISOString()
+    });
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+}
+
+function setMensaje(texto, color) {
+    const mensaje = document.getElementById("mensaje");
+    mensaje.innerText = texto;
+    mensaje.style.color = color;
+}
+
+async function registrar() {
+    const nombre = document.getElementById("nombre").value.trim();
+    const correo = document.getElementById("correo").value.trim();
+
+    if (nombre === "" || correo === "") {
+        setMensaje("Completa todos los campos", "orange");
         return;
     }
+
+    setMensaje("Enviando...", "white");
 
     try {
         const respuesta = await fetch("https://runner-bag-production.up.railway.app/predict", {
@@ -268,17 +326,30 @@ async function registrar() {
             body: JSON.stringify({ nombre, correo })
         });
 
+        if (!respuesta.ok) {
+            throw new Error("El servidor respondió con error");
+        }
+
         const datos = await respuesta.json();
-        document.getElementById("mensaje").innerText = "Servidor respondió: " + JSON.stringify(datos);
+
+        guardarLocal(nombre, correo);
+        setMensaje("Registro exitoso ✅", "lightgreen");
+
+        document.getElementById("nombre").value = "";
+        document.getElementById("correo").value = "";
+
+        console.log("Respuesta del servidor:", datos);
     } catch (error) {
-        document.getElementById("mensaje").innerText = "Error al conectar con el backend ❌";
+        guardarLocal(nombre, correo);
+        setMensaje("Guardado localmente ⚡", "yellow");
+
+        document.getElementById("nombre").value = "";
+        document.getElementById("correo").value = "";
+
+        console.error("Error al conectar con el backend:", error);
     }
 }
 </script>
-
-<footer>
-    © 2026 RunnerBag
-</footer>
 
 </body>
 </html>
