@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>RunnerBag</title>
 
-<!-- ICONO CON TU NOMBRE REAL -->
 <link rel="icon" type="image/png" href="logo.png.png.png">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +14,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     color: white;
     background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    overflow-x: hidden; 
 }
 
 nav {
@@ -26,6 +26,7 @@ nav {
     width: 100%;
     top: 0;
     z-index: 10;
+    box-sizing: border-box;
 }
 
 .menu a {
@@ -37,7 +38,11 @@ nav {
 .pantalla {
     display: none;
     min-height: 100vh;
-    padding: 120px 40px 60px;
+    /* Margen de seguridad para que el texto no pegue a los bordes */
+    padding: 120px 25px 60px; 
+    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .activa {
@@ -50,7 +55,7 @@ nav {
 }
 
 .hero h1 {
-    font-size: 55px;
+    font-size: clamp(35px, 8vw, 55px);
 }
 
 .hero p {
@@ -81,6 +86,7 @@ nav {
     cursor: pointer;
     margin-top: 20px;
     transition: 0.3s;
+    font-weight: bold;
 }
 
 .btn:hover {
@@ -89,10 +95,13 @@ nav {
 
 input {
     padding: 12px;
-    width: 260px;
+    width: 100%;
+    max-width: 300px;
     border-radius: 8px;
     border: none;
     margin-top: 10px;
+    box-sizing: border-box;
+    font-family: inherit;
 }
 
 .card-container {
@@ -114,6 +123,11 @@ input {
 .card:hover {
     transform: translateY(-10px);
 }
+
+#mensaje {
+    margin-top: 15px;
+    font-weight: bold;
+}
 </style>
 </head>
 
@@ -129,7 +143,6 @@ input {
     </div>
 </nav>
 
-<!-- HOME -->
 <div id="inicio" class="pantalla activa">
     <div class="hero">
         <h1>RunnerBag</h1>
@@ -145,21 +158,17 @@ input {
     </div>
 </div>
 
-<!-- PLANES -->
 <div id="planes" class="pantalla">
-    <h1>Planes</h1>
-
+    <h1 style="text-align: center;">Nuestros Cursos</h1>
     <div class="card-container">
         <div class="card" onclick="seleccionarPlan('gratis')">
             <h3>Gratis</h3>
             <p>IA básica<br>5 consultas</p>
         </div>
-
         <div class="card" onclick="seleccionarPlan('pro')">
             <h3>Pro</h3>
             <p>IA ilimitada<br>Mejor análisis</p>
         </div>
-
         <div class="card" onclick="seleccionarPlan('plus')">
             <h3>Plus</h3>
             <p>IA + asesor<br>Seguimiento</p>
@@ -167,60 +176,38 @@ input {
     </div>
 </div>
 
-<!-- IA MEJORADA -->
 <div id="ia" class="pantalla">
-
     <div style="max-width: 700px; margin: auto; text-align: center;">
-
         <h1 style="font-size: 42px;">Asistente RunnerBag</h1>
         <p style="color:#cbd5f5;">Pregunta lo que quieras sobre inversión</p>
-
-        <div style="
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(15px);
-        ">
-
-            <input id="preguntaIA"
-                placeholder="Ej: ¿Cómo empiezo a invertir?"
-                style="width: 100%; padding: 18px; border-radius: 12px; border: none;">
-
-            <button onclick="responderIA()"
-                style="width: 100%; padding: 15px; border-radius: 12px; border:none;
-                background: linear-gradient(135deg,#3b82f6,#2563eb); color:white;">
-                Consultar IA
-            </button>
-
-            <div id="respuestaIA" style="margin-top:20px;"></div>
-
+        <div style="background: rgba(255,255,255,0.05); border-radius: 20px; padding: 30px; backdrop-filter: blur(15px);">
+            <input id="preguntaIA" placeholder="Ej: ¿Cómo empiezo a invertir?">
+            <button onclick="responderIA()" class="btn" style="width: 100%; max-width: 300px;">Consultar IA</button>
+            <div id="respuestaIA" style="margin-top:20px; min-height: 50px;"></div>
         </div>
-
-        <div style="margin-top: 20px;">
-            <span onclick="preguntaRapida('invertir')" style="cursor:pointer;">Invertir</span> |
-            <span onclick="preguntaRapida('riesgo')" style="cursor:pointer;">Riesgo</span> |
-            <span onclick="preguntaRapida('cripto')" style="cursor:pointer;">Cripto</span>
-        </div>
-
     </div>
-
 </div>
 
-<!-- REGISTRO -->
 <div id="registro" class="pantalla">
-    <h1>Regístrate</h1>
+    <div style="max-width: 500px; margin: auto; text-align: center;">
+        <h1>Regístrate</h1>
+        <p>Recibe notificaciones de la bolsa en tu correo.</p>
 
-    <input id="nombre" placeholder="Nombre"><br>
-    <input id="correo" placeholder="Correo"><br>
-
-    <button class="btn" onclick="registrar()">Crear cuenta</button>
-    <p id="mensaje"></p>
+        <form id="form-registro" action="https://formspree.io/f/mgorgnko" method="POST">
+            <input type="text" name="nombre" id="nombre" placeholder="Tu nombre" required><br>
+            <input type="email" name="email" id="correo" placeholder="Tu correo electrónico" required><br>
+            <button type="submit" class="btn">Crear cuenta</button>
+        </form>
+        
+        <p id="mensaje"></p>
+    </div>
 </div>
 
 <script>
 function ir(p) {
     document.querySelectorAll(".pantalla").forEach(x => x.classList.remove("activa"));
     document.getElementById(p).classList.add("activa");
+    window.scrollTo(0, 0); 
 }
 
 function seleccionarPlan(plan) {
@@ -228,37 +215,47 @@ function seleccionarPlan(plan) {
     ir("ia");
 }
 
-function preguntaRapida(t) {
-    document.getElementById("preguntaIA").value = t;
-    responderIA();
-}
-
 function responderIA() {
     let plan = localStorage.getItem("plan") || "gratis";
+    let pregunta = document.getElementById("preguntaIA").value;
     let r = "";
+    if(!pregunta) return;
 
-    if(plan === "gratis") r = "Empieza aprendiendo antes de invertir.";
-    if(plan === "pro") r = "Considera ETFs y diversificación.";
-    if(plan === "plus") r = "Un asesor analizaría tu perfil.";
+    if(plan === "gratis") r = "Para analizar '" + pregunta + "' a fondo, considera el plan Pro. Por ahora: Estudia los fundamentos.";
+    if(plan === "pro") r = "Análisis Pro: '" + pregunta + "' sugiere una estrategia de diversificación sólida.";
+    if(plan === "plus") r = "Sobre '" + pregunta + "': Tu asesor personal revisará los indicadores y te contactará.";
 
-    document.getElementById("respuestaIA").innerText = "Pensando...";
-
-    setTimeout(() => {
-        document.getElementById("respuestaIA").innerText = r;
-    }, 600);
+    document.getElementById("respuestaIA").innerText = "Procesando...";
+    setTimeout(() => { document.getElementById("respuestaIA").innerText = r; }, 800);
 }
 
-function registrar() {
-    let n = nombre.value;
-    let c = correo.value;
+// Lógica de envío profesional
+const form = document.getElementById("form-registro");
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const mensajeStatus = document.getElementById("mensaje");
+    mensajeStatus.innerText = "Enviando registro...";
 
-    if(n === "" || c === "") {
-        mensaje.innerText = "Completa todo";
-        return;
-    }
-
-    ir("inicio");
-}
+    const data = new FormData(event.target);
+    fetch(event.target.action, {
+        method: form.method,
+        body: data,
+        headers: { 'Accept': 'application/json' }
+    }).then(response => {
+        if (response.ok) {
+            mensajeStatus.style.color = "#4ade80";
+            mensajeStatus.innerText = "¡Registro exitoso! Te llegará una notificación.";
+            form.reset();
+            setTimeout(() => ir("inicio"), 2000);
+        } else {
+            mensajeStatus.style.color = "#f87171";
+            mensajeStatus.innerText = "Hubo un error al procesar el registro.";
+        }
+    }).catch(error => {
+        mensajeStatus.style.color = "#f87171";
+        mensajeStatus.innerText = "Error de conexión con el servidor.";
+    });
+});
 </script>
 
 </body>
