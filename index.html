@@ -209,17 +209,17 @@
     <div id="inicio" class="pantalla activa">
         <div style="text-align: center;">
             <p style="color: var(--accent); font-weight: 600; letter-spacing: 4px;">FINTECH EDUCATION</p>
-            <h1 style="font-family: 'Montserrat', sans-serif; font-size: clamp(40px, 8vw, 70px); margin: 20px 0;">Domina tus<br><span style="color: var(--accent);">Finanzas</span></h1>
-            <button class="btn" style="width: auto;" onclick="ir('ia')">Probar Inteligencia Artificial</button>
+            <h1 style="font-family: 'Montserrat', sans-serif; font-size: 50px; margin: 20px 0;">El Futuro de tus Inversiones</h1>
+            <button class="btn" style="width: auto;" onclick="ir('ia')">Hablar con la IA</button>
         </div>
     </div>
 
     <div id="ia" class="pantalla">
         <div class="ai-card">
-            <div class="vidas-badge" id="vidas-display">5 CONSULTAS DISPONIBLES</div>
+            <div class="vidas-badge" id="vidas-display">5 VIDAS DISPONIBLES</div>
             <h2>Guía Experto RunnerBag</h2>
-            <input type="text" id="preguntaUsuario" placeholder="Hazme una pregunta sobre inversiones...">
-            <button class="btn" onclick="hablarConIA()">Analizar con Gemini 1.5</button>
+            <input type="text" id="preguntaUsuario" placeholder="Escribe tu duda financiera...">
+            <button class="btn" onclick="hablarConIA()">ANALIZAR CEREBRO IA</button>
             
             <div id="respuestaContenedor" class="respuesta-box">
                 <div id="textoRespuesta"></div>
@@ -228,30 +228,30 @@
     </div>
 
     <div id="planes" class="pantalla">
-        <h2 style="text-align: center;">Nuestros Cursos</h2>
+        <h2 style="text-align: center;">Cursos Disponibles</h2>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div class="ai-card"><h3>Básico</h3><p>Acceso Gratuito</p></div>
-            <div class="ai-card" style="border-color: var(--accent);"><h3>Trader Pro</h3><p>$20 USD / mes</p></div>
+            <div class="ai-card"><h3>Básico</h3><p>Gratis</p></div>
+            <div class="ai-card" style="border-color: var(--accent);"><h3>Pro</h3><p>$20/mes</p></div>
         </div>
     </div>
 
     <div id="registro" class="pantalla">
         <div class="ai-card" style="max-width: 400px; margin: auto;">
-            <h2>Contacto</h2>
+            <h2>Soporte</h2>
             <form action="https://formspree.io/f/mgorgnko" method="POST">
                 <input type="text" name="nombre" placeholder="Nombre" required>
                 <input type="email" name="email" placeholder="Email" required>
-                <button type="submit" class="btn">Enviar Mensaje</button>
+                <button type="submit" class="btn">Enviar</button>
             </form>
         </div>
     </div>
 
     <footer>
-        <p>RunnerBag 2026 | Tecnología Educativa por Ronald Bar</p>
+        <p>RunnerBag 2026 | Tecnología de Ronald Bar</p>
     </footer>
 
     <script>
-        // CONFIGURACIÓN: PEGA TU API KEY AQUÍ
+        // CONFIGURACIÓN DE LA LLAVE
         const API_KEY = "AIzaSyDWzqfM9HZ8CaZtLGTep-bsuHK48OvZylA"; 
         let vidas = 5;
 
@@ -268,25 +268,21 @@
             const displayVidas = document.getElementById("vidas-display");
 
             if (!pregunta) return;
-            if (vidas <= 0) {
-                alert("Has usado tus 5 consultas gratuitas.");
-                return;
-            }
+            if (vidas <= 0) { alert("Has agotado tus vidas."); return; }
 
             contenedor.style.display = "block";
-            texto.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Conectando con Gemini 1.5 Flash...";
+            texto.innerHTML = "Analizando...";
 
             try {
-                // URL OFICIAL ESTABLE 2026
-                const url = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
+                // RUTA CORREGIDA 2026 PARA CUENTAS GRATUITAS
+                // Usamos la v1 estable y el modelo flash que es el que soporta el free tier sin errores
+                const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
                 const response = await fetch(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        contents: [{
-                            parts: [{ text: "Responde como el guía de RunnerBag, un experto en finanzas para jóvenes. Sé breve y motivador: " + pregunta }]
-                        }]
+                        contents: [{ parts: [{ text: "Eres el experto financiero de RunnerBag. Responde brevemente: " + pregunta }] }]
                     })
                 });
 
@@ -298,16 +294,17 @@
                 }
 
                 if (data.candidates && data.candidates[0].content) {
-                    const respuesta = data.candidates[0].content.parts[0].text;
+                    const respuestaIA = data.candidates[0].content.parts[0].text;
                     vidas--;
-                    displayVidas.innerText = vidas + " CONSULTAS DISPONIBLES";
-                    texto.innerHTML = "<b>Respuesta del Guía:</b><br><br>" + respuesta.replace(/\n/g, '<br>');
+                    displayVidas.innerText = `${vidas} VIDAS DISPONIBLES`;
+                    texto.innerHTML = respuestaIA.replace(/\n/g, '<br>');
                 } else {
-                    texto.innerHTML = "La IA no pudo procesar tu duda. Intenta con otra frase.";
+                    texto.innerHTML = "No se recibió respuesta. Intenta de nuevo.";
                 }
 
-            } catch (err) {
-                texto.innerHTML = "Error de conexión. Revisa que tu API Key sea correcta.";
+            } catch (error) {
+                texto.innerHTML = "Error de conexión. Verifica tu API Key.";
+                console.error(error);
             }
         }
     </script>
