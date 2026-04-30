@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RunnerBag | Intelligence Portal</title>
+    <title>RunnerBag | Inteligencia Financiera</title>
 
     <link rel="icon" type="image/png" href="logo.png.png.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +57,6 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* NAVEGACIÓN */
         nav {
             background: rgba(2, 6, 23, 0.85);
             backdrop-filter: blur(15px);
@@ -81,7 +80,6 @@
             transition: 0.3s;
         }
 
-        .logo-container:hover { transform: scale(1.05); }
         .logo-container img { height: 40px; filter: drop-shadow(0 0 8px var(--accent-glow)); }
 
         .menu a {
@@ -100,7 +98,6 @@
             background: rgba(45, 212, 191, 0.1);
         }
 
-        /* CONTENIDO */
         .pantalla {
             display: none;
             min-height: 100vh;
@@ -120,7 +117,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* TARJETA IA */
         .ai-card {
             background: rgba(15, 23, 42, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -154,8 +150,6 @@
             margin-bottom: 15px;
             outline: none;
         }
-
-        input:focus { border-color: var(--accent); }
 
         .btn {
             background: linear-gradient(135deg, #2dd4bf, #0d9488);
@@ -215,17 +209,17 @@
     <div id="inicio" class="pantalla activa">
         <div style="text-align: center;">
             <p style="color: var(--accent); font-weight: 600; letter-spacing: 4px;">FINTECH EDUCATION</p>
-            <h1 style="font-family: 'Montserrat', sans-serif; font-size: clamp(40px, 8vw, 70px); margin: 20px 0;">El Futuro de tus<br><span style="color: var(--accent);">Inversiones</span></h1>
-            <button class="btn" style="width: auto;" onclick="ir('ia')">Hablar con la IA</button>
+            <h1 style="font-family: 'Montserrat', sans-serif; font-size: clamp(40px, 8vw, 70px); margin: 20px 0;">Domina tus<br><span style="color: var(--accent);">Finanzas</span></h1>
+            <button class="btn" style="width: auto;" onclick="ir('ia')">Probar Inteligencia Artificial</button>
         </div>
     </div>
 
     <div id="ia" class="pantalla">
         <div class="ai-card">
-            <div class="vidas-badge" id="vidas-display">5 VIDAS DISPONIBLES</div>
-            <h2>Consultoría Inteligente</h2>
-            <input type="text" id="preguntaUsuario" placeholder="Escribe tu duda financiera aquí...">
-            <button class="btn" onclick="hablarConIA()">Analizar con Gemini</button>
+            <div class="vidas-badge" id="vidas-display">5 CONSULTAS DISPONIBLES</div>
+            <h2>Guía Experto RunnerBag</h2>
+            <input type="text" id="preguntaUsuario" placeholder="Hazme una pregunta sobre inversiones...">
+            <button class="btn" onclick="hablarConIA()">Analizar con Gemini 1.5</button>
             
             <div id="respuestaContenedor" class="respuesta-box">
                 <div id="textoRespuesta"></div>
@@ -236,28 +230,28 @@
     <div id="planes" class="pantalla">
         <h2 style="text-align: center;">Nuestros Cursos</h2>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div class="ai-card"><h3>Básico</h3><p>Gratis</p></div>
-            <div class="ai-card" style="border-color: var(--accent);"><h3>Pro</h3><p>$20/mes</p></div>
+            <div class="ai-card"><h3>Básico</h3><p>Acceso Gratuito</p></div>
+            <div class="ai-card" style="border-color: var(--accent);"><h3>Trader Pro</h3><p>$20 USD / mes</p></div>
         </div>
     </div>
 
     <div id="registro" class="pantalla">
         <div class="ai-card" style="max-width: 400px; margin: auto;">
-            <h2>Registro</h2>
+            <h2>Contacto</h2>
             <form action="https://formspree.io/f/mgorgnko" method="POST">
                 <input type="text" name="nombre" placeholder="Nombre" required>
                 <input type="email" name="email" placeholder="Email" required>
-                <button type="submit" class="btn">Enviar</button>
+                <button type="submit" class="btn">Enviar Mensaje</button>
             </form>
         </div>
     </div>
 
     <footer>
-        <p>RunnerBag 2026 | Tecnología de Ronald Bar</p>
+        <p>RunnerBag 2026 | Tecnología Educativa por Ronald Bar</p>
     </footer>
 
     <script>
-        // CONFIGURACIÓN CLAVE: REEMPLAZA CON TU API KEY
+        // CONFIGURACIÓN: PEGA TU API KEY AQUÍ
         const API_KEY = "AIzaSyDWzqfM9HZ8CaZtLGTep-bsuHK48OvZylA"; 
         let vidas = 5;
 
@@ -274,25 +268,24 @@
             const displayVidas = document.getElementById("vidas-display");
 
             if (!pregunta) return;
-
             if (vidas <= 0) {
-                alert("Sin vidas. Pásate al plan Pro.");
+                alert("Has usado tus 5 consultas gratuitas.");
                 return;
             }
 
             contenedor.style.display = "block";
-            texto.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Pensando...";
+            texto.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Conectando con Gemini 1.5 Flash...";
 
             try {
-                // CAMBIAMOS A LA VERSIÓN V1 Y MODELO GEMINI-PRO (MÁS ESTABLE)
-                const finalUrl = "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=" + API_KEY;
+                // URL OFICIAL ESTABLE 2026
+                const url = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
 
-                const response = await fetch(finalUrl, {
+                const response = await fetch(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         contents: [{
-                            parts: [{ text: "Responde como el Guía experto de RunnerBag de forma motivadora: " + pregunta }]
+                            parts: [{ text: "Responde como el guía de RunnerBag, un experto en finanzas para jóvenes. Sé breve y motivador: " + pregunta }]
                         }]
                     })
                 });
@@ -300,21 +293,21 @@
                 const data = await response.json();
 
                 if (data.error) {
-                    texto.innerHTML = "<b>Error:</b> " + data.error.message;
+                    texto.innerHTML = "<b>Error de Google:</b> " + data.error.message;
                     return;
                 }
 
                 if (data.candidates && data.candidates[0].content) {
                     const respuesta = data.candidates[0].content.parts[0].text;
                     vidas--;
-                    displayVidas.innerText = vidas + " VIDAS DISPONIBLES";
-                    texto.innerHTML = "<b>RunnerBag dice:</b><br><br>" + respuesta.replace(/\n/g, '<br>');
+                    displayVidas.innerText = vidas + " CONSULTAS DISPONIBLES";
+                    texto.innerHTML = "<b>Respuesta del Guía:</b><br><br>" + respuesta.replace(/\n/g, '<br>');
                 } else {
-                    texto.innerHTML = "No recibí respuesta clara de la IA.";
+                    texto.innerHTML = "La IA no pudo procesar tu duda. Intenta con otra frase.";
                 }
 
             } catch (err) {
-                texto.innerHTML = "Fallo de conexión. Revisa tu internet o la consola.";
+                texto.innerHTML = "Error de conexión. Revisa que tu API Key sea correcta.";
             }
         }
     </script>
