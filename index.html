@@ -257,7 +257,7 @@
     </footer>
 
     <script>
-        // CONFIGURACIÓN CLAVE: REEMPLAZA "TU_LLAVE_AQUÍ" CON TU API KEY REAL
+        // CONFIGURACIÓN CLAVE: REEMPLAZA CON TU API KEY
         const API_KEY = "AIzaSyDWzqfM9HZ8CaZtLGTep-bsuHK48OvZylA"; 
         let vidas = 5;
 
@@ -284,16 +284,15 @@
             texto.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Pensando...";
 
             try {
-                // URL CONSTRUIDA PIEZA POR PIEZA PARA EVITAR ERRORES
-                const baseUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
-                const finalUrl = baseUrl + "?key=" + API_KEY;
+                // CAMBIAMOS A LA VERSIÓN V1 Y MODELO GEMINI-PRO (MÁS ESTABLE)
+                const finalUrl = "https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=" + API_KEY;
 
                 const response = await fetch(finalUrl, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         contents: [{
-                            parts: [{ text: "Responde como el Guía de RunnerBag a: " + pregunta }]
+                            parts: [{ text: "Responde como el Guía experto de RunnerBag de forma motivadora: " + pregunta }]
                         }]
                     })
                 });
@@ -301,8 +300,7 @@
                 const data = await response.json();
 
                 if (data.error) {
-                    texto.innerHTML = "<b>Error de API:</b> " + data.error.message;
-                    console.error("Detalle del error:", data.error);
+                    texto.innerHTML = "<b>Error:</b> " + data.error.message;
                     return;
                 }
 
@@ -312,12 +310,11 @@
                     displayVidas.innerText = vidas + " VIDAS DISPONIBLES";
                     texto.innerHTML = "<b>RunnerBag dice:</b><br><br>" + respuesta.replace(/\n/g, '<br>');
                 } else {
-                    texto.innerHTML = "No recibí respuesta. Revisa tu API Key.";
+                    texto.innerHTML = "No recibí respuesta clara de la IA.";
                 }
 
             } catch (err) {
-                texto.innerHTML = "Fallo de conexión. Revisa la consola (F12).";
-                console.error("Fallo total:", err);
+                texto.innerHTML = "Fallo de conexión. Revisa tu internet o la consola.";
             }
         }
     </script>
