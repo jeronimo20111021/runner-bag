@@ -27,26 +27,17 @@
         }
 
         .ticker-wrap {
-            width: 100%;
-            overflow: hidden;
-            height: 35px;
+            width: 100%; overflow: hidden; height: 35px;
             background-color: rgba(2, 6, 23, 0.9);
             border-bottom: 1px solid var(--accent);
-            position: fixed;
-            top: 60px;
-            z-index: 99;
+            position: fixed; top: 60px; z-index: 99;
         }
 
         .ticker {
-            display: inline-block;
-            height: 35px;
-            line-height: 35px;
-            white-space: nowrap;
-            padding-right: 100%;
+            display: inline-block; height: 35px; line-height: 35px;
+            white-space: nowrap; padding-right: 100%;
             animation: ticker 40s linear infinite;
-            color: var(--accent);
-            font-size: 12px;
-            font-weight: bold;
+            color: var(--accent); font-size: 12px; font-weight: bold;
         }
 
         @keyframes ticker {
@@ -55,106 +46,62 @@
         }
 
         nav {
-            background: rgba(2, 6, 23, 0.85);
-            backdrop-filter: blur(15px);
-            padding: 10px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(15px);
+            padding: 10px 40px; display: flex; justify-content: space-between;
+            align-items: center; position: fixed; width: 100%;
+            top: 0; z-index: 100; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             box-sizing: border-box;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
+        .logo-container { display: flex; align-items: center; gap: 12px; }
         .logo-container img { height: 40px; }
 
         .menu a {
-            color: var(--text-gray);
-            padding: 10px 15px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
+            color: var(--text-gray); padding: 10px 15px;
+            text-decoration: none; font-size: 13px; font-weight: 700; cursor: pointer;
         }
 
         .pantalla {
-            display: none;
-            min-height: 100vh;
-            padding: 160px 20px 80px;
-            max-width: 1000px;
-            margin: 0 auto;
-            box-sizing: border-box;
+            display: none; min-height: 100vh; padding: 160px 20px 80px;
+            max-width: 1000px; margin: 0 auto; box-sizing: border-box;
         }
 
         .pantalla.activa { display: block; }
 
         .ai-card {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 40px;
-            text-align: center;
+            background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px; padding: 40px; text-align: center;
         }
 
         .vidas-badge {
-            background: rgba(45, 212, 191, 0.1);
-            color: var(--accent);
-            padding: 6px 15px;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: bold;
-            border: 1px solid var(--accent);
-            margin-bottom: 20px;
-            display: inline-block;
+            background: rgba(45, 212, 191, 0.1); color: var(--accent);
+            padding: 6px 15px; border-radius: 50px; font-size: 12px;
+            font-weight: bold; border: 1px solid var(--accent);
+            margin-bottom: 20px; display: inline-block;
         }
 
         input {
-            width: 100%;
-            padding: 18px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            color: white;
-            margin-bottom: 15px;
-            outline: none;
+            width: 100%; padding: 18px; background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+            color: white; margin-bottom: 15px; outline: none;
         }
 
         .btn {
             background: linear-gradient(135deg, #2dd4bf, #0d9488);
-            color: #020617;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 800;
-            cursor: pointer;
-            width: 100%;
-            text-transform: uppercase;
+            color: #020617; padding: 15px 30px; border: none;
+            border-radius: 12px; font-weight: 800; cursor: pointer;
+            width: 100%; text-transform: uppercase;
         }
 
         .respuesta-box {
-            margin-top: 30px;
-            padding: 25px;
-            border-radius: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            text-align: left;
-            border-left: 4px solid var(--accent);
-            display: none;
+            margin-top: 30px; padding: 25px; border-radius: 15px;
+            background: rgba(0, 0, 0, 0.3); text-align: left;
+            border-left: 4px solid var(--accent); display: none;
         }
 
         footer {
             border-top: 1px solid rgba(255,255,255,0.1);
-            padding: 40px;
-            text-align: center;
-            color: var(--text-gray);
+            padding: 40px; text-align: center; color: var(--text-gray);
         }
     </style>
 </head>
@@ -191,7 +138,7 @@
             <div class="vidas-badge" id="vidas-display">5 VIDAS DISPONIBLES</div>
             <h2>Cerebro RunnerBag</h2>
             <input type="text" id="preguntaUsuario" placeholder="Escribe tu mensaje aquí...">
-            <button class="btn" onclick="hablarConIA()">ANALIZAR CON GEMINI</button>
+            <button class="btn" onclick="hablarConIA()">ANALIZAR CON GEMINI PRO</button>
             <div id="respuestaContenedor" class="respuesta-box">
                 <div id="textoRespuesta"></div>
             </div>
@@ -216,7 +163,7 @@
     <footer><p>RunnerBag 2026</p></footer>
 
     <script>
-        // CONFIGURACIÓN DE LLAVE
+        // CONFIGURACIÓN DE LLAVE - USA V1BETA CON GEMINI-PRO
         const API_KEY = "AIzaSyDWzqfM9HZ8CaZtLGTep-bsuHK48OvZylA"; 
         let vidas = 5;
 
@@ -234,11 +181,11 @@
             if (!pregunta || vidas <= 0) return;
 
             contenedor.style.display = "block";
-            texto.innerHTML = "Conectando...";
+            texto.innerHTML = "Conectando al canal Beta...";
 
             try {
-                // CAMBIO CRÍTICO: Usamos v1beta y el nombre completo del modelo
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+                // RUTA BETA CON MODELO PRO PARA MÁXIMA COMPATIBILIDAD GRATUITA
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
 
                 const response = await fetch(url, {
                     method: "POST",
@@ -250,16 +197,16 @@
 
                 const data = await response.json();
 
-                if (data.candidates) {
+                if (data.candidates && data.candidates[0].content) {
                     const respuesta = data.candidates[0].content.parts[0].text;
                     vidas--;
                     displayVidas.innerText = vidas + " VIDAS DISPONIBLES";
-                    texto.innerHTML = respuesta;
+                    texto.innerHTML = respuesta.replace(/\n/g, '<br>');
                 } else {
-                    texto.innerHTML = "Error: " + (data.error ? data.error.message : "Intenta de nuevo.");
+                    texto.innerHTML = "Error de respuesta: " + (data.error ? data.error.message : "Modelo no disponible en esta región.");
                 }
             } catch (e) {
-                texto.innerHTML = "Error de red. Revisa tu consola.";
+                texto.innerHTML = "Fallo de conexión. Revisa que tu API Key sea de Google AI Studio.";
             }
         }
     </script>
