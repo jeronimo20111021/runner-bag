@@ -34,7 +34,6 @@
             line-height: 1.6;
         }
 
-        /* --- NAVEGACIÓN --- */
         nav {
             background: rgba(2, 6, 23, 0.85);
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -51,10 +50,10 @@
         .menu a {
             color: var(--text-gray); padding: 10px 20px; text-decoration: none;
             font-size: 14px; font-weight: 600; border-radius: 8px; transition: 0.3s;
+            cursor: pointer;
         }
         .menu a.activo { color: var(--accent); background: rgba(45, 212, 191, 0.1); }
 
-        /* --- TICKER --- */
         .ticker-wrap {
             width: 100%; overflow: hidden; height: 40px;
             background: rgba(2, 6, 23, 0.95); border-bottom: 1px solid var(--accent);
@@ -67,7 +66,6 @@
         }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* --- CONTENIDO --- */
         .pantalla { display: none; min-height: 100vh; padding: 180px 20px 100px; max-width: 1100px; margin: 0 auto; }
         .pantalla.activa { display: block; animation: fadeIn 0.6s forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -96,8 +94,9 @@
             background: linear-gradient(135deg, var(--accent), var(--accent-hover));
             color: #020617; padding: 18px 40px; border: none; border-radius: 14px;
             font-family: 'Montserrat', sans-serif; font-weight: 800; cursor: pointer;
-            width: 100%; text-transform: uppercase;
+            width: 100%; text-transform: uppercase; transition: 0.3s;
         }
+        .btn:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--accent-glow); }
 
         .respuesta-box {
             margin-top: 35px; padding: 30px; border-radius: 18px;
@@ -129,7 +128,7 @@
 
     <div id="inicio" class="pantalla activa">
         <div style="text-align: center;">
-            <h1>Domina el Futuro de tus <span style="color: var(--accent);">Finanzas</span></h1>
+            <h1 style="font-size: 3rem; margin-bottom: 20px;">Domina el Futuro de tus <span style="color: var(--accent);">Finanzas</span></h1>
             <button class="btn" style="width: auto;" onclick="ir('ia')">INICIAR CONSULTORÍA IA</button>
         </div>
     </div>
@@ -137,7 +136,7 @@
     <div id="ia" class="pantalla">
         <div class="ai-card">
             <div class="vidas-badge" id="vidas-display"><i class="fa-solid fa-heart"></i> 5 CONSULTAS</div>
-            <h2>Consultoría Inteligente</h2>
+            <h2 style="margin-bottom: 25px;">Consultoría Inteligente</h2>
             <input type="text" id="preguntaUsuario" placeholder="Escribe tu duda financiera...">
             <button class="btn" onclick="hablarConIA()">ANALIZAR CON CEREBRO IA</button>
             <div id="respuestaContenedor" class="respuesta-box"><div id="textoRespuesta"></div></div>
@@ -148,7 +147,7 @@
     <div id="registro" class="pantalla"><h2>Soporte Técnico</h2></div>
 
     <script>
-        // PEGA AQUÍ TU LLAVE NUEVA (LA QUE LLAMASTE RunnerBag API Key)
+        // RECUERDA USAR TU LLAVE NUEVA AQUÍ
         const API_KEY = "AIzaSyALNgZAcPeD7zpur411nj-TGsEFbuMA2AM"; 
         let consultasRestantes = 5;
 
@@ -166,34 +165,36 @@
             const vidas = document.getElementById("vidas-display");
 
             if (!input.value.trim()) return;
-            if (consultasRestantes <= 0) return;
+            if (consultasRestantes <= 0) { alert("Has agotado tus consultas gratuitas."); return; }
 
             contenedor.style.display = "block";
-            texto.innerHTML = "Analizando datos...";
+            texto.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Procesando inteligencia...";
 
             try {
-                // MODELO ACTUALIZADO A GEMINI-1.5-FLASH
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+                // CAMBIO CLAVE: Usamos gemini-2.5-flash como aparece en tu panel
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
                 
                 const res = await fetch(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: "Eres la IA de la fintech RunnerBag. Responde: " + input.value }] }]
+                        contents: [{ parts: [{ text: "Responde de forma concisa como el experto financiero de RunnerBag: " + input.value }] }]
                     })
                 });
 
                 const data = await res.json();
 
-                if (data.candidates) {
+                if (data.candidates && data.candidates[0].content) {
                     texto.innerHTML = data.candidates[0].content.parts[0].text;
                     consultasRestantes--;
                     vidas.innerHTML = `<i class="fa-solid fa-heart"></i> ${consultasRestantes} CONSULTAS`;
                 } else {
-                    texto.innerHTML = "Error de respuesta: " + (data.error ? data.error.message : "Desconocido");
+                    // Si el servidor responde pero con un error de Google
+                    texto.innerHTML = `<span style="color:#ef4444">Error de Google:</span> ${data.error ? data.error.message : 'No se pudo generar respuesta.'}`;
+                    console.log("Detalle del error:", data);
                 }
             } catch (e) {
-                texto.innerHTML = "Error de conexión.";
+                texto.innerHTML = "<span style='color:#ef4444'>Fallo de conexión. Revisa tu internet o la API Key.</span>";
             }
         }
     </script>
