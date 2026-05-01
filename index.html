@@ -15,7 +15,6 @@
             --bg-dark: #020617;
             --accent: #2dd4bf;
             --accent-glow: rgba(45, 212, 191, 0.4);
-            --glass: rgba(255, 255, 255, 0.05);
             --text-gray: #94a3b8;
         }
 
@@ -25,10 +24,8 @@
             color: #f8fafc;
             background: radial-gradient(circle at top, #1e3a8a 0%, #020617 100%);
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        /* TICKER DE BOLSA */
         .ticker-wrap {
             width: 100%;
             overflow: hidden;
@@ -76,11 +73,9 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            cursor: pointer;
-            transition: 0.3s;
         }
 
-        .logo-container img { height: 40px; filter: drop-shadow(0 0 8px var(--accent-glow)); }
+        .logo-container img { height: 40px; }
 
         .menu a {
             color: var(--text-gray);
@@ -88,14 +83,7 @@
             text-decoration: none;
             font-size: 13px;
             font-weight: 700;
-            border-radius: 8px;
-            transition: 0.3s;
             cursor: pointer;
-        }
-
-        .menu a:hover {
-            color: var(--accent);
-            background: rgba(45, 212, 191, 0.1);
         }
 
         .pantalla {
@@ -107,23 +95,13 @@
             box-sizing: border-box;
         }
 
-        .pantalla.activa {
-            display: block;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .pantalla.activa { display: block; }
 
         .ai-card {
             background: rgba(15, 23, 42, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
             padding: 40px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
             text-align: center;
         }
 
@@ -146,7 +124,6 @@
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px;
             color: white;
-            font-size: 16px;
             margin-bottom: 15px;
             outline: none;
         }
@@ -159,12 +136,9 @@
             border-radius: 12px;
             font-weight: 800;
             cursor: pointer;
-            transition: 0.3s;
             width: 100%;
             text-transform: uppercase;
         }
-
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px var(--accent-glow); }
 
         .respuesta-box {
             margin-top: 30px;
@@ -174,7 +148,6 @@
             text-align: left;
             border-left: 4px solid var(--accent);
             display: none;
-            line-height: 1.6;
         }
 
         footer {
@@ -202,14 +175,13 @@
 
     <div class="ticker-wrap">
         <div class="ticker">
-            BITCOIN $98,420 (+2.1%) • ETHEREUM $4,150 (+1.4%) • NVIDIA $168.20 (+3.8%) • S&P 500 5,450 (+0.8%) • GOLD $2,420 (-0.1%)
+            BITCOIN $98,420 (+2.1%) • NVIDIA $168.20 (+3.8%) • GOLD $2,420 (-0.1%)
         </div>
     </div>
 
     <div id="inicio" class="pantalla activa">
         <div style="text-align: center;">
-            <p style="color: var(--accent); font-weight: 600; letter-spacing: 4px;">FINTECH EDUCATION</p>
-            <h1 style="font-family: 'Montserrat', sans-serif; font-size: 50px; margin: 20px 0;">El Futuro de tus Inversiones</h1>
+            <h1 style="font-size: 50px;">RunnerBag Fintech</h1>
             <button class="btn" style="width: auto;" onclick="ir('ia')">Hablar con la IA</button>
         </div>
     </div>
@@ -217,10 +189,9 @@
     <div id="ia" class="pantalla">
         <div class="ai-card">
             <div class="vidas-badge" id="vidas-display">5 VIDAS DISPONIBLES</div>
-            <h2>Guía Experto RunnerBag</h2>
-            <input type="text" id="preguntaUsuario" placeholder="Escribe tu duda financiera...">
-            <button class="btn" onclick="hablarConIA()">ANALIZAR CEREBRO IA</button>
-            
+            <h2>Cerebro RunnerBag</h2>
+            <input type="text" id="preguntaUsuario" placeholder="Escribe tu mensaje aquí...">
+            <button class="btn" onclick="hablarConIA()">ANALIZAR CON GEMINI</button>
             <div id="respuestaContenedor" class="respuesta-box">
                 <div id="textoRespuesta"></div>
             </div>
@@ -228,37 +199,30 @@
     </div>
 
     <div id="planes" class="pantalla">
-        <h2 style="text-align: center;">Cursos Disponibles</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div class="ai-card"><h3>Básico</h3><p>Gratis</p></div>
-            <div class="ai-card" style="border-color: var(--accent);"><h3>Pro</h3><p>$20/mes</p></div>
-        </div>
+        <h2 style="text-align: center;">Planes</h2>
+        <div class="ai-card"><h3>Plan Gratuito Activo</h3></div>
     </div>
 
     <div id="registro" class="pantalla">
-        <div class="ai-card" style="max-width: 400px; margin: auto;">
+        <div class="ai-card">
             <h2>Soporte</h2>
             <form action="https://formspree.io/f/mgorgnko" method="POST">
-                <input type="text" name="nombre" placeholder="Nombre" required>
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="email" name="email" placeholder="Tu Email" required>
                 <button type="submit" class="btn">Enviar</button>
             </form>
         </div>
     </div>
 
-    <footer>
-        <p>RunnerBag 2026 | Tecnología de Ronald Bar</p>
-    </footer>
+    <footer><p>RunnerBag 2026</p></footer>
 
     <script>
-        // CONFIGURACIÓN DE LA LLAVE
+        // CONFIGURACIÓN DE LLAVE
         const API_KEY = "AIzaSyDWzqfM9HZ8CaZtLGTep-bsuHK48OvZylA"; 
         let vidas = 5;
 
         function ir(p) {
             document.querySelectorAll(".pantalla").forEach(x => x.classList.remove("activa"));
             document.getElementById(p).classList.add("activa");
-            window.scrollTo(0,0);
         }
 
         async function hablarConIA() {
@@ -267,44 +231,35 @@
             const texto = document.getElementById("textoRespuesta");
             const displayVidas = document.getElementById("vidas-display");
 
-            if (!pregunta) return;
-            if (vidas <= 0) { alert("Has agotado tus vidas."); return; }
+            if (!pregunta || vidas <= 0) return;
 
             contenedor.style.display = "block";
-            texto.innerHTML = "Analizando...";
+            texto.innerHTML = "Conectando...";
 
             try {
-                // RUTA CORREGIDA 2026 PARA CUENTAS GRATUITAS
-                // Usamos la v1 estable y el modelo flash que es el que soporta el free tier sin errores
-                const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+                // CAMBIO CRÍTICO: Usamos v1beta y el nombre completo del modelo
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
                 const response = await fetch(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: "Eres el experto financiero de RunnerBag. Responde brevemente: " + pregunta }] }]
+                        contents: [{ parts: [{ text: "Responde como el guía de RunnerBag: " + pregunta }] }]
                     })
                 });
 
                 const data = await response.json();
 
-                if (data.error) {
-                    texto.innerHTML = "<b>Error de Google:</b> " + data.error.message;
-                    return;
-                }
-
-                if (data.candidates && data.candidates[0].content) {
-                    const respuestaIA = data.candidates[0].content.parts[0].text;
+                if (data.candidates) {
+                    const respuesta = data.candidates[0].content.parts[0].text;
                     vidas--;
-                    displayVidas.innerText = `${vidas} VIDAS DISPONIBLES`;
-                    texto.innerHTML = respuestaIA.replace(/\n/g, '<br>');
+                    displayVidas.innerText = vidas + " VIDAS DISPONIBLES";
+                    texto.innerHTML = respuesta;
                 } else {
-                    texto.innerHTML = "No se recibió respuesta. Intenta de nuevo.";
+                    texto.innerHTML = "Error: " + (data.error ? data.error.message : "Intenta de nuevo.");
                 }
-
-            } catch (error) {
-                texto.innerHTML = "Error de conexión. Verifica tu API Key.";
-                console.error(error);
+            } catch (e) {
+                texto.innerHTML = "Error de red. Revisa tu consola.";
             }
         }
     </script>
