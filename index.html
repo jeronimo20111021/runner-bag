@@ -34,6 +34,7 @@
             line-height: 1.6;
         }
 
+        /* --- NAVEGACIÓN --- */
         nav {
             background: rgba(2, 6, 23, 0.85);
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -46,18 +47,19 @@
         .logo-container img { height: 45px; filter: drop-shadow(0 0 10px var(--accent-glow)); }
         .logo-text { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 900; }
 
-        .menu { display: flex; gap: 10px; }
+        .menu { display: flex; gap: 5px; }
         .menu a {
-            color: var(--text-gray); padding: 10px 20px; text-decoration: none;
-            font-size: 14px; font-weight: 600; border-radius: 8px; transition: 0.3s;
+            color: var(--text-gray); padding: 10px 15px; text-decoration: none;
+            font-size: 13px; font-weight: 600; border-radius: 8px; transition: 0.3s;
             cursor: pointer;
         }
         .menu a.activo { color: var(--accent); background: rgba(45, 212, 191, 0.1); }
 
+        /* --- TICKER --- */
         .ticker-wrap {
             width: 100%; overflow: hidden; height: 40px;
             background: rgba(2, 6, 23, 0.95); border-bottom: 1px solid var(--accent);
-            position: fixed; top: 70px; z-index: 99;
+            position: fixed; top: 75px; z-index: 99;
         }
         .ticker {
             display: inline-block; height: 40px; line-height: 40px;
@@ -66,29 +68,40 @@
         }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
+        /* --- PANTALLAS --- */
         .pantalla { display: none; min-height: 100vh; padding: 180px 20px 100px; max-width: 1100px; margin: 0 auto; }
         .pantalla.activa { display: block; animation: fadeIn 0.6s forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .ai-card {
             background: var(--glass-bg); border: 1px solid var(--glass-border);
-            border-radius: 24px; padding: 50px; backdrop-filter: blur(20px);
+            border-radius: 24px; padding: 40px; backdrop-filter: blur(20px);
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); text-align: center;
+        }
+
+        /* --- ESTILO PRO (BLOQUEADO) --- */
+        .pro-container { position: relative; overflow: hidden; border-radius: 24px; }
+        .blur-content { filter: blur(8px); pointer-events: none; opacity: 0.5; user-select: none; }
+        .overlay-registro {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; z-index: 10; background: rgba(2, 6, 23, 0.4);
         }
 
         .vidas-badge {
             background: rgba(45, 212, 191, 0.1); color: var(--accent);
             padding: 8px 20px; border-radius: 50px; font-size: 13px;
             font-weight: 700; border: 1px solid var(--accent); margin-bottom: 25px;
-            display: inline-block; box-shadow: 0 0 15px var(--accent-glow);
+            display: inline-block;
         }
 
-        input {
-            width: 100%; padding: 20px 25px; background: rgba(255, 255, 255, 0.03);
+        input, select, textarea {
+            width: 100%; padding: 18px 25px; background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px;
-            color: white; font-size: 16px; margin-bottom: 20px; outline: none;
+            color: white; font-size: 16px; margin-bottom: 15px; outline: none;
+            font-family: 'Inter', sans-serif;
         }
-        input:focus { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
+        input:focus { border-color: var(--accent); }
 
         .btn {
             background: linear-gradient(135deg, var(--accent), var(--accent-hover));
@@ -97,12 +110,6 @@
             width: 100%; text-transform: uppercase; transition: 0.3s;
         }
         .btn:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--accent-glow); }
-
-        .respuesta-box {
-            margin-top: 35px; padding: 30px; border-radius: 18px;
-            background: rgba(0, 0, 0, 0.4); text-align: left;
-            border-left: 5px solid var(--accent); display: none;
-        }
     </style>
 </head>
 <body>
@@ -114,40 +121,87 @@
         </div>
         <div class="menu">
             <a onclick="ir('inicio')" id="nav-inicio" class="activo">INICIO</a>
-            <a onclick="ir('ia')" id="nav-ia">CEREBRO IA</a>
-            <a onclick="ir('planes')" id="nav-planes">CURSOS</a>
-            <a onclick="ir('registro')" id="nav-registro">SOPORTE</a>
+            <a onclick="ir('ia')" id="nav-ia">CEREBRO IA (GRATIS)</a>
+            <a onclick="ir('pro')" id="nav-pro">CEREBRO PRO</a>
+            <a onclick="ir('elite')" id="nav-elite">ASISTENTE ELITE</a>
+            <a onclick="ir('soporte')" id="nav-soporte">REGISTRO</a>
         </div>
     </nav>
 
     <div class="ticker-wrap">
         <div class="ticker">
-            <i class="fa-solid fa-bolt"></i> RUNNERBAG ACTUALIZACIÓN: BITCOIN $98,420 (+2.1%) &nbsp;&nbsp;•&nbsp;&nbsp; S&P 500 5,450 (+0.8%)
+            <i class="fa-solid fa-bolt"></i> RUNNERBAG MARKET: BITCOIN $98,420 (+2.1%) &nbsp;&nbsp;•&nbsp;&nbsp; S&P 500 5,450 (+0.8%) &nbsp;&nbsp;•&nbsp;&nbsp; WORLD CUP ALBUM 2026: DISPONIBLE PRÓXIMAMENTE
         </div>
     </div>
 
+    <!-- INICIO -->
     <div id="inicio" class="pantalla activa">
         <div style="text-align: center;">
-            <h1 style="font-size: 3rem; margin-bottom: 20px;">Domina el Futuro de tus <span style="color: var(--accent);">Finanzas</span></h1>
-            <button class="btn" style="width: auto;" onclick="ir('ia')">INICIAR CONSULTORÍA IA</button>
+            <h1 style="font-size: 3rem; margin-bottom: 20px; font-family: 'Montserrat';">Domina tus <span style="color: var(--accent);">Finanzas</span></h1>
+            <button class="btn" style="width: auto;" onclick="ir('ia')">IA GRATUITA</button>
+            <button class="btn" style="width: auto; background: white; margin-left: 10px;" onclick="ir('soporte')">UNIRSE AL CLUB</button>
         </div>
     </div>
 
+    <!-- CEREBRO IA (GRATIS) -->
     <div id="ia" class="pantalla">
         <div class="ai-card">
             <div class="vidas-badge" id="vidas-display"><i class="fa-solid fa-heart"></i> 5 CONSULTAS</div>
-            <h2 style="margin-bottom: 25px;">Consultoría Inteligente</h2>
-            <input type="text" id="preguntaUsuario" placeholder="Escribe tu duda financiera...">
+            <h2>Consultoría Básica</h2>
+            <input type="text" id="preguntaUsuario" placeholder="Escribe tu duda...">
             <button class="btn" onclick="hablarConIA()">ANALIZAR CON CEREBRO IA</button>
             <div id="respuestaContenedor" class="respuesta-box"><div id="textoRespuesta"></div></div>
         </div>
     </div>
 
-    <div id="planes" class="pantalla"><h2>Sección de Cursos</h2></div>
-    <div id="registro" class="pantalla"><h2>Soporte Técnico</h2></div>
+    <!-- CEREBRO PRO (BLOQUEADO) -->
+    <div id="pro" class="pantalla">
+        <div class="pro-container">
+            <div class="overlay-registro">
+                <i class="fa-solid fa-lock" style="font-size: 3rem; color: var(--accent); margin-bottom: 20px;"></i>
+                <h2>Cerebro Pro Bloqueado</h2>
+                <button class="btn" style="width: auto;" onclick="ir('soporte')">REGISTRARSE PARA DESBLOQUEAR</button>
+            </div>
+            <div class="ai-card blur-content">
+                <h2>Cerebro Pro</h2>
+                <input type="text" placeholder="No disponible">
+                <button class="btn">ANALIZAR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ASISTENTE ELITE -->
+    <div id="elite" class="pantalla">
+        <div class="ai-card" style="border-color: #fbbf24;">
+            <h2 style="color: #fbbf24;">Asistente Real Personal</h2>
+            <p>Un profesional con estudios reales que te da probabilidades de inversión ganadoras.</p>
+            <br>
+            <button class="btn" style="background: #fbbf24;" onclick="ir('soporte')">SOLICITAR ASESOR ELITE</button>
+        </div>
+    </div>
+
+    <!-- REGISTRO (CON FORMSPREE) -->
+    <div id="soporte" class="pantalla">
+        <div class="ai-card">
+            <h2 style="margin-bottom: 25px;">Únete a RunnerBag</h2>
+            
+            <!-- REEMPLAZA EL ID DE ABAJO POR TU ID DE FORMSPREE -->
+            <form action="https://formspree.io/f/tu_id_aqui" method="POST">
+                <input type="text" name="nombre" placeholder="Nombre Completo" required>
+                <input type="email" name="email" placeholder="Correo Electrónico" required>
+                <select name="plan">
+                    <option value="gratis">Plan IA Gratis</option>
+                    <option value="pro">Plan Cerebro Pro</option>
+                    <option value="elite">Plan Asistente Elite</option>
+                </select>
+                <textarea name="mensaje" placeholder="¿Cuál es tu meta financiera?" rows="3"></textarea>
+                <button type="submit" class="btn">ENVIAR REGISTRO</button>
+            </form>
+
+        </div>
+    </div>
 
     <script>
-        // RECUERDA USAR TU LLAVE NUEVA AQUÍ
         const API_KEY = "AIzaSyALNgZAcPeD7zpur411nj-TGsEFbuMA2AM"; 
         let consultasRestantes = 5;
 
@@ -155,47 +209,34 @@
             document.querySelectorAll(".pantalla").forEach(p => p.classList.remove("activa"));
             document.querySelectorAll(".menu a").forEach(a => a.classList.remove("activo"));
             document.getElementById(id).classList.add("activa");
-            document.getElementById("nav-" + id).classList.add("activo");
+            if(document.getElementById("nav-" + id)) document.getElementById("nav-" + id).classList.add("activo");
+            window.scrollTo(0,0);
         }
 
         async function hablarConIA() {
             const input = document.getElementById("preguntaUsuario");
-            const contenedor = document.getElementById("respuestaContenedor");
             const texto = document.getElementById("textoRespuesta");
-            const vidas = document.getElementById("vidas-display");
-
-            if (!input.value.trim()) return;
-            if (consultasRestantes <= 0) { alert("Has agotado tus consultas gratuitas."); return; }
+            const contenedor = document.getElementById("respuestaContenedor");
+            if (!input.value.trim() || consultasRestantes <= 0) return;
 
             contenedor.style.display = "block";
-            texto.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Procesando inteligencia...";
+            texto.innerHTML = "Procesando...";
 
             try {
-                // CAMBIO CLAVE: Usamos gemini-2.5-flash como aparece en tu panel
+                // MODELO 2.5 FLASH ACTUALIZADO
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
-                
                 const res = await fetch(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: "Responde de forma concisa como el experto financiero de RunnerBag: " + input.value }] }]
+                        contents: [{ parts: [{ text: "Eres la IA financiera de RunnerBag. Responde brevemente: " + input.value }] }]
                     })
                 });
-
                 const data = await res.json();
-
-                if (data.candidates && data.candidates[0].content) {
-                    texto.innerHTML = data.candidates[0].content.parts[0].text;
-                    consultasRestantes--;
-                    vidas.innerHTML = `<i class="fa-solid fa-heart"></i> ${consultasRestantes} CONSULTAS`;
-                } else {
-                    // Si el servidor responde pero con un error de Google
-                    texto.innerHTML = `<span style="color:#ef4444">Error de Google:</span> ${data.error ? data.error.message : 'No se pudo generar respuesta.'}`;
-                    console.log("Detalle del error:", data);
-                }
-            } catch (e) {
-                texto.innerHTML = "<span style='color:#ef4444'>Fallo de conexión. Revisa tu internet o la API Key.</span>";
-            }
+                texto.innerHTML = data.candidates[0].content.parts[0].text;
+                consultasRestantes--;
+                document.getElementById("vidas-display").innerHTML = `<i class="fa-solid fa-heart"></i> ${consultasRestantes} CONSULTAS`;
+            } catch (e) { texto.innerHTML = "Error de conexión."; }
         }
     </script>
 </body>
