@@ -5,39 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RunnerBag | Inteligencia Financiera</title>
 
+    <!-- ESTILOS Y FUENTES -->
     <link rel="icon" type="image/png" href="logo.png.png.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         :root {
             --bg-dark: #020617;
+            --bg-gradient: radial-gradient(circle at top right, #1e3a8a 0%, #020617 100%);
             --accent: #2dd4bf;
+            --accent-hover: #0d9488;
             --accent-glow: rgba(45, 212, 191, 0.4);
+            --glass-bg: rgba(15, 23, 42, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
             --text-gray: #94a3b8;
         }
 
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
-            font-family: 'Inter', sans-serif;
-            color: #f8fafc;
-            background: radial-gradient(circle at top, #1e3a8a 0%, #020617 100%);
-            min-height: 100vh;
+            padding: 0;
         }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- TICKER DE BOLSA --- */
         .ticker-wrap {
-            width: 100%; overflow: hidden; height: 35px;
-            background-color: rgba(2, 6, 23, 0.9);
+            width: 100%;
+            overflow: hidden;
+            height: 40px;
+            background-color: rgba(2, 6, 23, 0.95);
             border-bottom: 1px solid var(--accent);
-            position: fixed; top: 60px; z-index: 99;
+            position: fixed;
+            top: 70px;
+            z-index: 99;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
         .ticker {
-            display: inline-block; height: 35px; line-height: 35px;
-            white-space: nowrap; padding-right: 100%;
-            animation: ticker 40s linear infinite;
-            color: var(--accent); font-size: 12px; font-weight: bold;
+            display: inline-block;
+            height: 40px;
+            line-height: 40px;
+            white-space: nowrap;
+            padding-right: 100%;
+            animation: ticker 45s linear infinite;
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
         @keyframes ticker {
@@ -45,170 +70,440 @@
             100% { transform: translateX(-100%); }
         }
 
+        /* --- NAVEGACIÓN --- */
         nav {
-            background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(15px);
-            padding: 10px 40px; display: flex; justify-content: space-between;
-            align-items: center; position: fixed; width: 100%;
-            top: 0; z-index: 100; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            box-sizing: border-box;
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
         }
 
-        .logo-container { display: flex; align-items: center; gap: 12px; }
-        .logo-container img { height: 40px; }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.02);
+        }
+
+        .logo-container img {
+            height: 45px;
+            filter: drop-shadow(0 0 10px var(--accent-glow));
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            color: var(--text-main);
+        }
+
+        .menu {
+            display: flex;
+            gap: 10px;
+        }
 
         .menu a {
-            color: var(--text-gray); padding: 10px 15px;
-            text-decoration: none; font-size: 13px; font-weight: 700; cursor: pointer;
+            color: var(--text-gray);
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            letter-spacing: 0.5px;
         }
 
+        .menu a:hover, .menu a.activo {
+            color: var(--accent);
+            background: rgba(45, 212, 191, 0.1);
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
         .pantalla {
-            display: none; min-height: 100vh; padding: 160px 20px 80px;
-            max-width: 1000px; margin: 0 auto; box-sizing: border-box;
+            display: none;
+            min-height: 100vh;
+            padding: 180px 20px 100px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
-        .pantalla.activa { display: block; }
+        .pantalla.activa {
+            display: block;
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- TARJETAS ESTILO GLASSMORPHISM --- */
         .ai-card {
-            background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px; padding: 40px; text-align: center;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 50px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto de brillo en la tarjeta */
+        .ai-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.03) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 8s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
         }
 
         .vidas-badge {
-            background: rgba(45, 212, 191, 0.1); color: var(--accent);
-            padding: 6px 15px; border-radius: 50px; font-size: 12px;
-            font-weight: bold; border: 1px solid var(--accent);
-            margin-bottom: 20px; display: inline-block;
+            background: rgba(45, 212, 191, 0.1);
+            color: var(--accent);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            border: 1px solid var(--accent);
+            margin-bottom: 25px;
+            display: inline-block;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px var(--accent-glow);
         }
 
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(40px, 8vw, 75px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: var(--text-main);
+        }
+
+        /* --- INPUTS Y BOTONES --- */
         input {
-            width: 100%; padding: 18px; background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
-            color: white; margin-bottom: 15px; outline: none;
+            width: 100%;
+            padding: 20px 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            color: white;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 20px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 20px var(--accent-glow);
         }
 
         .btn {
-            background: linear-gradient(135deg, #2dd4bf, #0d9488);
-            color: #020617; padding: 15px 30px; border: none;
-            border-radius: 12px; font-weight: 800; cursor: pointer;
-            width: 100%; text-transform: uppercase;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color: #020617;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 14px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
         }
 
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px var(--accent-glow);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        /* --- CAJA DE RESPUESTA IA --- */
         .respuesta-box {
-            margin-top: 30px; padding: 25px; border-radius: 15px;
-            background: rgba(0, 0, 0, 0.3); text-align: left;
-            border-left: 4px solid var(--accent); display: none;
+            margin-top: 35px;
+            padding: 30px;
+            border-radius: 18px;
+            background: rgba(0, 0, 0, 0.4);
+            text-align: left;
+            border-left: 5px solid var(--accent);
+            display: none;
+            line-height: 1.8;
+            font-size: 16px;
+            color: #e2e8f0;
+            box-shadow: inset 0 2px 15px rgba(0,0,0,0.5);
+            animation: fadeIn 0.4s ease-out;
         }
 
+        .spinner {
+            display: inline-block;
+            margin-right: 10px;
+            color: var(--accent);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- FOOTER --- */
         footer {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding: 40px; text-align: center; color: var(--text-gray);
+            border-top: 1px solid var(--glass-border);
+            padding: 50px;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 14px;
+            background: rgba(2, 6, 23, 0.8);
+        }
+
+        /* --- GRID PARA PLANES --- */
+        .grid-planes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
 
+    <!-- NAVEGACIÓN -->
     <nav>
         <div class="logo-container" onclick="ir('inicio')">
-            <img src="logo.png.png.png" alt="Logo">
-            <b style="font-size: 20px;">RunnerBag</b>
+            <img src="logo.png.png.png" alt="RunnerBag Logo">
+            <span class="logo-text">RunnerBag</span>
         </div>
         <div class="menu">
-            <a onclick="ir('inicio')">INICIO</a>
-            <a onclick="ir('ia')">GUÍA IA</a>
-            <a onclick="ir('planes')">CURSOS</a>
-            <a onclick="ir('registro')">SOPORTE</a>
+            <a onclick="ir('inicio')" id="nav-inicio" class="activo">INICIO</a>
+            <a onclick="ir('ia')" id="nav-ia">CEREBRO IA</a>
+            <a onclick="ir('planes')" id="nav-planes">CURSOS</a>
+            <a onclick="ir('registro')" id="nav-registro">SOPORTE</a>
         </div>
     </nav>
 
+    <!-- TICKER FINANCIERO -->
     <div class="ticker-wrap">
         <div class="ticker">
-            BITCOIN $98,420 (+2.1%) • NVIDIA $168.20 (+3.8%) • GOLD $2,420 (-0.1%)
+            <i class="fa-solid fa-bolt"></i> RUNNERBAG ACTUALIZACIÓN: BITCOIN $98,420 (+2.1%) &nbsp;&nbsp;•&nbsp;&nbsp; ETHEREUM $4,150 (+1.4%) &nbsp;&nbsp;•&nbsp;&nbsp; NVIDIA $168.20 (+3.8%) &nbsp;&nbsp;•&nbsp;&nbsp; S&P 500 5,450 (+0.8%) &nbsp;&nbsp;•&nbsp;&nbsp; GOLD $2,420 (-0.1%)
         </div>
     </div>
 
+    <!-- PANTALLA: INICIO -->
     <div id="inicio" class="pantalla activa">
-        <div style="text-align: center;">
-            <h1 style="font-size: 50px;">RunnerBag Fintech</h1>
-            <button class="btn" style="width: auto;" onclick="ir('ia')">Hablar con la IA</button>
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <p style="color: var(--accent); font-weight: 700; letter-spacing: 5px; margin-bottom: 20px; font-size: 14px;">PLATAFORMA FINTECH INTELIGENTE</p>
+            <h1>Domina el Futuro de tus <span style="color: var(--accent);">Finanzas</span></h1>
+            <p style="color: var(--text-gray); font-size: 18px; margin-bottom: 40px; line-height: 1.8;">
+                Bienvenido a RunnerBag. Utiliza nuestro cerebro artificial para analizar el mercado, resolver dudas financieras y estructurar tus metas de ahorro.
+            </p>
+            <button class="btn" style="width: auto; padding: 20px 50px; font-size: 16px;" onclick="ir('ia')">
+                <i class="fa-solid fa-microchip"></i> INICIAR CONSULTORÍA IA
+            </button>
         </div>
     </div>
 
+    <!-- PANTALLA: IA (CEREBRO) -->
     <div id="ia" class="pantalla">
         <div class="ai-card">
-            <div class="vidas-badge" id="vidas-display">5 VIDAS DISPONIBLES</div>
-            <h2>Cerebro RunnerBag</h2>
-            <input type="text" id="preguntaUsuario" placeholder="Escribe tu mensaje aquí...">
-            <button class="btn" onclick="hablarConIA()">ANALIZAR CON GEMINI PRO</button>
+            <div class="vidas-badge" id="vidas-display">
+                <i class="fa-solid fa-heart"></i> 5 CONSULTAS DISPONIBLES
+            </div>
+            <h2>Consultoría Inteligente</h2>
+            <input type="text" id="preguntaUsuario" placeholder="Ej: ¿Cómo organizo mis finanzas para este año?..." autocomplete="off">
+            <button class="btn" onclick="hablarConIA()">
+                <i class="fa-solid fa-brain"></i> ANALIZAR CON CEREBRO IA
+            </button>
+            
             <div id="respuestaContenedor" class="respuesta-box">
                 <div id="textoRespuesta"></div>
             </div>
         </div>
     </div>
 
+    <!-- PANTALLA: CURSOS/PLANES -->
     <div id="planes" class="pantalla">
-        <h2 style="text-align: center;">Planes</h2>
-        <div class="ai-card"><h3>Plan Gratuito Activo</h3></div>
+        <h2 style="text-align: center;">Estructura tu Conocimiento</h2>
+        <div class="grid-planes">
+            <div class="ai-card" style="padding: 40px;">
+                <h3 style="color: var(--text-gray); margin-bottom: 15px;">Nivel Semilla</h3>
+                <h2 style="font-size: 40px; margin-bottom: 20px;">Gratis</h2>
+                <p style="color: var(--text-gray); margin-bottom: 30px;">Ideal para empezar a entender el mercado.</p>
+                <button class="btn" style="background: transparent; border: 2px solid var(--text-gray); color: white;">Plan Actual</button>
+            </div>
+            <div class="ai-card" style="padding: 40px; border-color: var(--accent); box-shadow: 0 0 30px rgba(45, 212, 191, 0.1);">
+                <div style="position: absolute; top: 15px; right: -30px; background: var(--accent); color: #000; padding: 5px 40px; transform: rotate(45deg); font-size: 12px; font-weight: bold;">PRO</div>
+                <h3 style="color: var(--accent); margin-bottom: 15px;">Nivel Runner</h3>
+                <h2 style="font-size: 40px; margin-bottom: 20px;">$20 <span style="font-size: 16px; color: var(--text-gray);">/mes</span></h2>
+                <p style="color: var(--text-gray); margin-bottom: 30px;">Consultas ilimitadas y análisis de mercado en tiempo real.</p>
+                <button class="btn">Actualizar Plan</button>
+            </div>
+        </div>
     </div>
 
+    <!-- PANTALLA: SOPORTE -->
     <div id="registro" class="pantalla">
-        <div class="ai-card">
-            <h2>Soporte</h2>
+        <div class="ai-card" style="max-width: 500px; margin: auto;">
+            <h2>Soporte Técnico</h2>
+            <p style="color: var(--text-gray); margin-bottom: 30px;">¿Problemas con tu cuenta? Escríbenos.</p>
             <form action="https://formspree.io/f/mgorgnko" method="POST">
-                <input type="email" name="email" placeholder="Tu Email" required>
-                <button type="submit" class="btn">Enviar</button>
+                <input type="text" name="nombre" placeholder="Nombre completo" required>
+                <input type="email" name="email" placeholder="Correo electrónico" required>
+                <button type="submit" class="btn"><i class="fa-solid fa-paper-plane"></i> Enviar Mensaje</button>
             </form>
         </div>
     </div>
 
-    <footer><p>RunnerBag 2026</p></footer>
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 RunnerBag Fintech. Desarrollado con tecnología de vanguardia.</p>
+    </footer>
 
+    <!-- LOGICA DE LA APLICACIÓN -->
     <script>
-        // CONFIGURACIÓN DE LLAVE - USA V1BETA CON GEMINI-PRO
+        // ==========================================
+        // 1. CONFIGURACIÓN DE LA API (NIVEL GRATUITO)
+        // ==========================================
         const API_KEY = "AIzaSyDWzqfM9HZ8CaZtLGTep-bsuHK48OvZylA"; 
-        let vidas = 5;
+        let consultasRestantes = 5;
 
-        function ir(p) {
-            document.querySelectorAll(".pantalla").forEach(x => x.classList.remove("activa"));
-            document.getElementById(p).classList.add("activa");
+        // ==========================================
+        // 2. NAVEGACIÓN ENTRE PANTALLAS
+        // ==========================================
+        function ir(pantallaId) {
+            // Ocultar todas las pantallas
+            document.querySelectorAll(".pantalla").forEach(pantalla => {
+                pantalla.classList.remove("activa");
+            });
+            // Quitar clase activa del menú
+            document.querySelectorAll(".menu a").forEach(enlace => {
+                enlace.classList.remove("activo");
+            });
+
+            // Mostrar la seleccionada
+            document.getElementById(pantallaId).classList.add("activa");
+            document.getElementById("nav-" + pantallaId).classList.add("activo");
+            
+            // Subir el scroll suavemente
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // ==========================================
+        // 3. CONEXIÓN AL CEREBRO IA (V1BETA)
+        // ==========================================
         async function hablarConIA() {
-            const pregunta = document.getElementById("preguntaUsuario").value;
+            const inputElement = document.getElementById("preguntaUsuario");
+            const pregunta = inputElement.value.trim();
             const contenedor = document.getElementById("respuestaContenedor");
             const texto = document.getElementById("textoRespuesta");
             const displayVidas = document.getElementById("vidas-display");
 
-            if (!pregunta || vidas <= 0) return;
+            // Validaciones
+            if (!pregunta) {
+                inputElement.focus();
+                return;
+            }
+            if (consultasRestantes <= 0) {
+                alert("Has agotado tus consultas gratuitas. Actualiza tu plan para continuar.");
+                return;
+            }
 
+            // Preparar UI para cargar
             contenedor.style.display = "block";
-            texto.innerHTML = "Conectando al canal Beta...";
+            texto.innerHTML = "<i class='fa-solid fa-spinner spinner'></i> Procesando análisis en la red neuronal...";
+            inputElement.value = ""; // Limpiar input
 
             try {
-                // RUTA BETA CON MODELO PRO PARA MÁXIMA COMPATIBILIDAD GRATUITA
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
+                // LA URL CORRECTA PARA EL PLAN GRATIS EN BOGOTÁ (v1beta + gemini-1.5-pro)
+                const urlApi = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${API_KEY}`;
 
-                const response = await fetch(url, {
+                const respuestaHTTP = await fetch(urlApi, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: "Responde como el guía de RunnerBag: " + pregunta }] }]
+                        contents: [{ 
+                            parts: [{ 
+                                text: "Actúa como el cerebro IA de RunnerBag, un experto financiero y de programación para jóvenes en Colombia. Responde de forma clara y sin código a menos que se pida: " + pregunta 
+                            }] 
+                        }]
                     })
                 });
 
-                const data = await response.json();
+                const data = await respuestaHTTP.json();
 
+                // Manejo de la respuesta
                 if (data.candidates && data.candidates[0].content) {
-                    const respuesta = data.candidates[0].content.parts[0].text;
-                    vidas--;
-                    displayVidas.innerText = vidas + " VIDAS DISPONIBLES";
-                    texto.innerHTML = respuesta.replace(/\n/g, '<br>');
+                    const respuestaIA = data.candidates[0].content.parts[0].text;
+                    
+                    consultasRestantes--;
+                    displayVidas.innerHTML = `<i class="fa-solid fa-heart"></i> ${consultasRestantes} CONSULTAS DISPONIBLES`;
+                    
+                    // Formatear texto (saltos de línea y negritas básicas)
+                    let textoFormateado = respuestaIA.replace(/\n/g, '<br>');
+                    textoFormateado = textoFormateado.replace(/\*\*(.*?)\*\*/g, '<strong style="color:var(--accent)">$1</strong>');
+                    
+                    texto.innerHTML = textoFormateado;
+                } else if (data.error) {
+                    // Si Google manda un error (ej. llave inválida)
+                    texto.innerHTML = `<strong style="color:#ef4444;">Error de Conexión:</strong> ${data.error.message}`;
                 } else {
-                    texto.innerHTML = "Error de respuesta: " + (data.error ? data.error.message : "Modelo no disponible en esta región.");
+                    texto.innerHTML = "No se pudo procesar la respuesta. Intenta con otra frase.";
                 }
-            } catch (e) {
-                texto.innerHTML = "Fallo de conexión. Revisa que tu API Key sea de Google AI Studio.";
+
+            } catch (error) {
+                // Error de red
+                texto.innerHTML = `<strong style="color:#ef4444;">Fallo crítico:</strong> Revisa tu conexión a internet o asegúrate de que tu API Key sea válida.`;
+                console.error("Detalle del error:", error);
             }
         }
+
+        // Permitir enviar con la tecla Enter
+        document.getElementById("preguntaUsuario").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                hablarConIA();
+            }
+        });
     </script>
 </body>
 </html>
