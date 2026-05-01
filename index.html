@@ -2,24 +2,23 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <!-- Esta línea asegura que se adapte perfectamente a las pantallas de los celulares -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RunnerBag | Tu Copiloto Financiero</title>
+    <title>RunnerBag | Fintech OS</title>
     <style>
-        /* Paleta de colores Fintech Profesional (Modo Oscuro) */
+        /* Estilo recuperado de la presentación: Futurista y Elegante */
         :root {
-            --bg-principal: #0d1117;
-            --bg-tarjeta: #161b22;
-            --color-acento: #00ffcc;
-            --texto-claro: #c9d1d9;
-            --texto-blanco: #ffffff;
-            --borde: #30363d;
+            --bg: #050505;
+            --card-bg: #121212;
+            --accent: #00f2ff; /* El azul cian de la presentación */
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --border: #222;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            background-color: var(--bg-principal);
-            color: var(--texto-claro);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
             margin: 0;
             padding: 0;
             display: flex;
@@ -27,307 +26,209 @@
             align-items: center;
         }
 
-        /* Contenedor principal adaptable */
-        .contenedor {
+        .app-wrapper {
             width: 100%;
-            max-width: 600px; /* Tamaño ideal para simular app en escritorio y verse bien en celular */
-            padding: 0 15px;
+            max-width: 450px; /* Tamaño tipo app móvil */
+            min-height: 100vh;
+            padding: 20px;
             box-sizing: border-box;
         }
 
-        /* Encabezado y Logo */
+        /* Front-Space con tu Logo Original */
         header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-align: center;
             padding: 20px 0;
-            border-bottom: 1px solid var(--borde);
-            margin-bottom: 20px;
         }
 
-        .logo-icono {
-            font-size: 28px;
-            margin-right: 10px;
+        .logo-img {
+            width: 120px; /* Ajusta según el tamaño de tu imagen */
+            height: auto;
+            margin-bottom: 10px;
         }
 
-        .logo-texto {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--texto-blanco);
-            letter-spacing: 1px;
-        }
-
-        /* Navegación */
+        /* Navegación Estilo Presentación */
         nav {
             display: flex;
             justify-content: space-between;
-            background-color: var(--bg-tarjeta);
-            padding: 12px 20px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            border: 1px solid var(--borde);
-        }
-
-        nav a {
-            color: var(--texto-blanco);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        nav a:hover {
-            color: var(--color-acento);
-        }
-
-        /* Tarjetas (Cards) */
-        .tarjeta {
-            background-color: var(--bg-tarjeta);
-            border: 1px solid var(--borde);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .tarjeta h3 {
-            color: var(--texto-blanco);
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            border-bottom: 1px solid var(--borde);
+            margin: 20px 0;
+            border-bottom: 2px solid var(--accent);
             padding-bottom: 10px;
         }
 
-        /* Mercado en tiempo real (Metales) */
-        .mercado-grid {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .mercado-item {
-            text-align: center;
-            width: 48%;
-            background: #0d1117;
-            padding: 15px 0;
-            border-radius: 8px;
-            border: 1px solid var(--borde);
-        }
-
-        .mercado-item span {
-            display: block;
-            font-size: 0.85rem;
-            color: #8b949e;
-        }
-
-        .mercado-precio {
-            font-size: 1.2rem;
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.8rem;
             font-weight: bold;
-            color: var(--color-acento);
-            margin-top: 5px;
+            letter-spacing: 1px;
         }
 
-        /* Asistente IA Chatbot */
-        .chat-contenedor {
-            height: 250px;
+        /* Widgets de Mercado (Oro/Plata) */
+        .front-space-data {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .data-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .data-card span { font-size: 0.7rem; color: var(--accent); font-weight: bold; }
+        .data-card div { font-size: 1.1rem; margin-top: 5px; }
+
+        /* Tarjetas de Contenido */
+        .panel {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+
+        /* Guía y Planes para Clientes */
+        .guia-paso { margin-bottom: 12px; font-size: 0.85rem; border-left: 2px solid var(--accent); padding-left: 10px; }
+        .plan-item { background: #1a1a1a; padding: 10px; border-radius: 8px; margin-top: 10px; }
+
+        /* Chat IA con efecto de carga */
+        .chat-screen {
+            height: 180px;
             overflow-y: auto;
-            background: #0d1117;
-            border: 1px solid var(--borde);
-            border-radius: 8px;
+            background: #000;
+            border-radius: 10px;
             padding: 15px;
             margin-bottom: 15px;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            font-size: 0.85rem;
+            border: 1px solid var(--accent);
         }
 
-        .mensaje-usuario {
-            color: var(--texto-blanco);
-            margin-bottom: 10px;
-        }
-
-        .mensaje-ia {
-            color: var(--color-acento);
-            margin-bottom: 10px;
-        }
-
-        /* Animación de carga con degradado */
-        .cargando-texto {
-            background: linear-gradient(90deg, #00ffcc, #00b3ff, #00ffcc);
+        .loading-gradient {
+            background: linear-gradient(90deg, #00f2ff, #7000ff, #00f2ff);
             background-size: 200% auto;
-            color: transparent;
             -webkit-background-clip: text;
-            animation: brillo 2s linear infinite;
+            -webkit-text-fill-color: transparent;
+            animation: shine 2s linear infinite;
             font-weight: bold;
         }
 
-        @keyframes brillo {
-            to { background-position: 200% center; }
-        }
+        @keyframes shine { to { background-position: 200% center; } }
 
-        /* Controles del Chat */
-        .controles-chat {
-            display: flex;
-            gap: 10px;
-        }
+        .input-group { display: flex; gap: 10px; }
+        input { flex: 1; background: #1a1a1a; border: 1px solid var(--border); padding: 10px; color: #fff; border-radius: 5px; }
+        button { background: var(--accent); color: #000; border: none; padding: 10px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; }
 
-        input[type="text"] {
-            flex-grow: 1;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid var(--borde);
-            background: #0d1117;
-            color: var(--texto-blanco);
-            outline: none;
-        }
-
-        input[type="text"]:focus {
-            border-color: var(--color-acento);
-        }
-
-        button {
-            background-color: var(--color-acento);
-            color: #000;
-            border: none;
-            padding: 0 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        button:hover {
-            background-color: #00e6b8;
-        }
+        /* Logo de abajo */
+        footer { text-align: center; padding: 20px 0; }
     </style>
 </head>
 <body>
 
-    <div class="contenedor">
-        
-        <!-- Header con Logo -->
-        <header>
-            <div class="logo-icono">🏦</div>
-            <div class="logo-texto">RunnerBag</div>
-        </header>
+<div class="app-wrapper">
+    <header>
+        <!-- Tu logo recuperado con el nombre exacto -->
+        <img src="logo.png.png.png" alt="RunnerBag Logo" class="logo-img">
+        <div style="font-size: 0.7rem; color: var(--accent); letter-spacing: 2px;">FINTECH SOLUTIONS</div>
+    </header>
 
-        <!-- Menú de Navegación -->
-        <nav>
-            <a href="#guia">Guía</a>
-            <a href="#planes">Planes</a>
-            <a href="#ayuda">Ayuda</a>
-            <a href="#registro">Registro</a>
-        </nav>
+    <nav>
+        <a href="#guia">GUÍA</a>
+        <a href="#planes">PLANES</a>
+        <a href="#ayuda">AYUDA</a>
+        <a href="#registro">REGISTRO</a>
+    </nav>
 
-        <!-- Sección de Mercado (Oro y Plata) -->
-        <div class="tarjeta">
-            <h3>Indicadores de Mercado (COP)</h3>
-            <div class="mercado-grid">
-                <div class="mercado-item">
-                    <span>Oro (gr)</span>
-                    <div class="mercado-precio">$315.400</div>
-                </div>
-                <div class="mercado-item">
-                    <span>Plata (gr)</span>
-                    <div class="mercado-precio">$3.850</div>
-                </div>
-            </div>
+    <!-- Front-Space: Mercado Real -->
+    <div class="front-space-data">
+        <div class="data-card">
+            <span>ORO (GR)</span>
+            <div>$315.400</div>
         </div>
-
-        <!-- Sección de Planes para Clientes -->
-        <div id="planes" class="tarjeta">
-            <h3>Planes de Inversión</h3>
-            <p style="font-size: 0.9rem; margin-bottom: 15px;">Soluciones financieras adaptadas a las necesidades de tu portafolio.</p>
-            
-            <div style="background: #0d1117; padding: 12px; border-radius: 8px; border: 1px solid var(--borde); margin-bottom: 10px;">
-                <strong style="color: var(--texto-blanco);">Fondo de Emergencia Flexible</strong>
-                <p style="font-size: 0.8rem; margin: 5px 0 0 0;">Liquidez inmediata con rendimientos diarios.</p>
-            </div>
-            
-            <div style="background: #0d1117; padding: 12px; border-radius: 8px; border: 1px solid var(--borde);">
-                <strong style="color: var(--texto-blanco);">Ahorro Programado a Plazo</strong>
-                <p style="font-size: 0.8rem; margin: 5px 0 0 0;">Maximiza tu tasa de interés bloqueando el capital a 6, 12 o 24 meses.</p>
-            </div>
+        <div class="data-card">
+            <span>PLATA (GR)</span>
+            <div>$3.850</div>
         </div>
-
-        <!-- Chat Inteligente Integrado -->
-        <div id="ayuda" class="tarjeta">
-            <h3>Cerebro IA Financiero</h3>
-            
-            <div id="caja-chat" class="chat-contenedor">
-                <div class="mensaje-ia"><b>RunnerBag IA:</b> Bienvenido. Soy tu asesor financiero virtual. ¿En qué te puedo ayudar a proyectar hoy?</div>
-            </div>
-            
-            <div class="controles-chat">
-                <input type="text" id="input-usuario" placeholder="Escribe tu consulta financiera...">
-                <button onclick="enviarMensaje()">Enviar</button>
-            </div>
-        </div>
-
     </div>
 
-    <script>
-        // ¡IMPORTANTE! Pega aquí tu nueva API Key configurada
-        const API_KEY = "AIzaSyC74v2s_GhGADomcumyR5NhFLgtf8ErK8g";
+    <!-- La Guía que pediste -->
+    <div id="guia" class="panel">
+        <h3 style="color: var(--accent); margin-top: 0;">Guía de Usuario</h3>
+        <div class="guia-paso"><b>Configuración:</b> Establece tus límites de ahorro mensual en el panel de control.</div>
+        <div class="guia-paso"><b>Inversión:</b> Monitorea el valor de los metales para diversificar tu capital.</div>
+        <div class="guia-paso"><b>Análisis:</b> Consulta con la IA para obtener proyecciones de mercado.</div>
+    </div>
 
-        async function enviarMensaje() {
-            const inputElemento = document.getElementById('input-usuario');
-            const cajaChat = document.getElementById('caja-chat');
-            const texto = inputElemento.value.trim();
+    <!-- Planes para Clientes -->
+    <div id="planes" class="panel">
+        <h3 style="color: var(--accent); margin-top: 0;">Planes Corporativos</h3>
+        <div class="plan-item">
+            <strong>Plan Alpha</strong>
+            <p style="font-size: 0.75rem; color: var(--text-dim); margin: 5px 0;">Gestión de activos con liquidez inmediata.</p>
+        </div>
+        <div class="plan-item">
+            <strong>Plan Beta</strong>
+            <p style="font-size: 0.75rem; color: var(--text-dim); margin: 5px 0;">Crecimiento compuesto a largo plazo.</p>
+        </div>
+    </div>
+
+    <!-- Ayuda / IA -->
+    <div id="ayuda" class="panel">
+        <h3 style="color: var(--accent); margin-top: 0;">Cerebro IA</h3>
+        <div id="chat-output" class="chat-screen">
+            <span style="color: var(--text-dim);">Sistema listo para consultas financieras...</span>
+        </div>
+        <div class="input-group">
+            <input type="text" id="user-query" placeholder="¿Cómo puedo ahorrar mejor?">
+            <button onclick="ejecutarIA()">ENVIAR</button>
+        </div>
+    </div>
+
+    <footer>
+        <img src="logo.png.png.png" alt="RunnerBag Logo Footer" style="width: 50px; opacity: 0.5;">
+    </footer>
+</div>
+
+<script>
+    const API_KEY = "AIzaSyDm_iH0xXHemkiMaEeg05Vb-foG7skA-uc";
+
+    async function ejecutarIA() {
+        const input = document.getElementById('user-query');
+        const output = document.getElementById('chat-output');
+        const prompt = input.value.trim();
+
+        if(!prompt) return;
+
+        output.innerHTML += `<div style="margin-top:10px;"><b>> Usuario:</b> ${prompt}</div>`;
+        input.value = "";
+
+        const tempId = 'loading-' + Date.now();
+        output.innerHTML += `<div id="${tempId}" class="loading-gradient">Analizando datos financieros...</div>`;
+        output.scrollTop = output.scrollHeight;
+
+        try {
+            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+            });
             
-            if(!texto) return;
+            const data = await res.json();
+            document.getElementById(tempId).remove();
 
-            // 1. Mostrar el mensaje del usuario
-            cajaChat.innerHTML += `<div class="mensaje-usuario"><b>Tú:</b> ${texto}</div>`;
-            inputElemento.value = "";
-            
-            // 2. Mostrar estado de carga (con el degradado animado)
-            const idCarga = 'carga-' + Date.now();
-            cajaChat.innerHTML += `<div id="${idCarga}" class="cargando-texto">Procesando análisis...</div>`;
-            cajaChat.scrollTop = cajaChat.scrollHeight;
-
-            try {
-                // 3. Llamada REAL a la API de Gemini
-                const respuesta = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: texto }] }]
-                    })
-                });
-                
-                const datos = await respuesta.json();
-                
-                // 4. Eliminar el mensaje de carga
-                document.getElementById(idCarga).remove();
-                
-                // 5. Mostrar la respuesta
-                if (datos.candidates && datos.candidates[0].content.parts[0].text) {
-                    let textoRespuesta = datos.candidates[0].content.parts[0].text;
-                    // Dar formato a los saltos de línea
-                    textoRespuesta = textoRespuesta.replace(/\n/g, "<br>");
-                    cajaChat.innerHTML += `<div class="mensaje-ia"><b>RunnerBag IA:</b><br>${textoRespuesta}</div>`;
-                } else {
-                    cajaChat.innerHTML += `<div class="mensaje-ia" style="color: #ff6b6b;"><b>Error:</b> No se pudo procesar la respuesta.</div>`;
-                }
-
-            } catch (error) {
-                document.getElementById(idCarga).remove();
-                cajaChat.innerHTML += `<div class="mensaje-ia" style="color: #ff6b6b;"><b>Error de sistema:</b> Revisa tu conexión o la API Key.</div>`;
-                console.error("Detalle del error:", error);
+            if (data.candidates && data.candidates[0].content.parts[0].text) {
+                let r = data.candidates[0].content.parts[0].text.replace(/\n/g, "<br>");
+                output.innerHTML += `<div style="color: var(--accent); margin-top:10px;"><b>> RunnerBag IA:</b><br>${r}</div>`;
             }
-            
-            // Mantener el scroll siempre abajo
-            cajaChat.scrollTop = cajaChat.scrollHeight;
+        } catch (e) {
+            document.getElementById(tempId).remove();
+            output.innerHTML += `<div style="color: #ff4d4d;">Error de red. Verifica tu API Key.</div>`;
         }
-
-        // Permitir enviar el mensaje presionando la tecla "Enter"
-        document.getElementById("input-usuario").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                enviarMensaje();
-            }
-        });
-    </script>
+        output.scrollTop = output.scrollHeight;
+    }
+</script>
 </body>
 </html>
