@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RunnerBag | Inteligencia Financiera</title>
 
-    <!-- ESTILOS Y FUENTES -->
     <link rel="icon" type="image/png" href="logo.png.png.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -35,28 +34,6 @@
             line-height: 1.6;
         }
 
-        /* --- TICKER DE BOLSA --- */
-        .ticker-wrap {
-            width: 100%; overflow: hidden; height: 40px;
-            background-color: rgba(2, 6, 23, 0.95);
-            border-bottom: 1px solid var(--accent);
-            position: fixed; top: 70px; z-index: 99;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .ticker {
-            display: inline-block; height: 40px; line-height: 40px;
-            white-space: nowrap; padding-right: 100%;
-            animation: ticker 45s linear infinite;
-            color: var(--accent); font-size: 13px; font-weight: 600;
-            letter-spacing: 1px;
-        }
-
-        @keyframes ticker {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-
         /* --- NAVEGACIÓN --- */
         nav {
             background: rgba(2, 6, 23, 0.85);
@@ -64,116 +41,68 @@
             padding: 15px 50px; display: flex; justify-content: space-between;
             align-items: center; position: fixed; width: 100%;
             top: 0; z-index: 100; border-bottom: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
         }
 
-        .logo-container {
-            display: flex; align-items: center; gap: 15px; cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-container:hover { transform: scale(1.02); }
+        .logo-container { display: flex; align-items: center; gap: 15px; cursor: pointer; }
         .logo-container img { height: 45px; filter: drop-shadow(0 0 10px var(--accent-glow)); }
-
-        .logo-text {
-            font-family: 'Montserrat', sans-serif; font-size: 22px;
-            font-weight: 900; letter-spacing: 0.5px; color: var(--text-main);
-        }
+        .logo-text { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 900; }
 
         .menu { display: flex; gap: 10px; }
         .menu a {
             color: var(--text-gray); padding: 10px 20px; text-decoration: none;
-            font-size: 14px; font-weight: 600; border-radius: 8px;
-            transition: all 0.3s ease; cursor: pointer; letter-spacing: 0.5px;
+            font-size: 14px; font-weight: 600; border-radius: 8px; transition: 0.3s;
         }
+        .menu a.activo { color: var(--accent); background: rgba(45, 212, 191, 0.1); }
 
-        .menu a:hover, .menu a.activo {
-            color: var(--accent); background: rgba(45, 212, 191, 0.1);
+        /* --- TICKER --- */
+        .ticker-wrap {
+            width: 100%; overflow: hidden; height: 40px;
+            background: rgba(2, 6, 23, 0.95); border-bottom: 1px solid var(--accent);
+            position: fixed; top: 70px; z-index: 99;
         }
-
-        /* --- CONTENIDO PRINCIPAL --- */
-        .pantalla {
-            display: none; min-height: 100vh; padding: 180px 20px 100px;
-            max-width: 1100px; margin: 0 auto;
+        .ticker {
+            display: inline-block; height: 40px; line-height: 40px;
+            white-space: nowrap; animation: ticker 45s linear infinite;
+            color: var(--accent); font-size: 13px; font-weight: 600;
         }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        .pantalla.activa {
-            display: block; animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+        /* --- CONTENIDO --- */
+        .pantalla { display: none; min-height: 100vh; padding: 180px 20px 100px; max-width: 1100px; margin: 0 auto; }
+        .pantalla.activa { display: block; animation: fadeIn 0.6s forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- TARJETAS ESTILO GLASSMORPHISM --- */
         .ai-card {
             background: var(--glass-bg); border: 1px solid var(--glass-border);
-            border-radius: 24px; padding: 50px;
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px; padding: 50px; backdrop-filter: blur(20px);
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); text-align: center;
-            position: relative; overflow: hidden;
         }
 
         .vidas-badge {
             background: rgba(45, 212, 191, 0.1); color: var(--accent);
             padding: 8px 20px; border-radius: 50px; font-size: 13px;
-            font-weight: 700; border: 1px solid var(--accent);
-            margin-bottom: 25px; display: inline-block; letter-spacing: 1px;
-            box-shadow: 0 0 15px var(--accent-glow);
+            font-weight: 700; border: 1px solid var(--accent); margin-bottom: 25px;
+            display: inline-block; box-shadow: 0 0 15px var(--accent-glow);
         }
 
-        h1 {
-            font-family: 'Montserrat', sans-serif; font-size: clamp(40px, 8vw, 75px);
-            font-weight: 900; line-height: 1.1; margin-bottom: 25px;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        h2 { font-family: 'Montserrat', sans-serif; font-size: 32px; margin-bottom: 30px; color: var(--text-main); }
-
-        /* --- INPUTS Y BOTONES --- */
         input {
             width: 100%; padding: 20px 25px; background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px;
-            color: white; font-size: 16px; font-family: 'Inter', sans-serif;
-            margin-bottom: 20px; outline: none; transition: all 0.3s ease;
+            color: white; font-size: 16px; margin-bottom: 20px; outline: none;
         }
-
-        input:focus {
-            border-color: var(--accent); background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
+        input:focus { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
 
         .btn {
             background: linear-gradient(135deg, var(--accent), var(--accent-hover));
             color: #020617; padding: 18px 40px; border: none; border-radius: 14px;
-            font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 800;
-            cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 100%; text-transform: uppercase; letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif; font-weight: 800; cursor: pointer;
+            width: 100%; text-transform: uppercase;
         }
 
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px var(--accent-glow); }
-
-        /* --- CAJA DE RESPUESTA IA --- */
         .respuesta-box {
             margin-top: 35px; padding: 30px; border-radius: 18px;
             background: rgba(0, 0, 0, 0.4); text-align: left;
             border-left: 5px solid var(--accent); display: none;
-            line-height: 1.8; font-size: 16px; color: #e2e8f0;
-            box-shadow: inset 0 2px 15px rgba(0,0,0,0.5);
-        }
-
-        .spinner {
-            display: inline-block; margin-right: 10px; color: var(--accent);
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        footer {
-            border-top: 1px solid var(--glass-border); padding: 50px;
-            text-align: center; color: var(--text-gray); font-size: 14px;
-            background: rgba(2, 6, 23, 0.8);
         }
     </style>
 </head>
@@ -194,97 +123,77 @@
 
     <div class="ticker-wrap">
         <div class="ticker">
-            <i class="fa-solid fa-bolt"></i> RUNNERBAG ACTUALIZACIÓN: BITCOIN $98,420 (+2.1%) &nbsp;&nbsp;•&nbsp;&nbsp; ETHEREUM $4,150 (+1.4%) &nbsp;&nbsp;•&nbsp;&nbsp; NVIDIA $168.20 (+3.8%) &nbsp;&nbsp;•&nbsp;&nbsp; S&P 500 5,450 (+0.8%)
+            <i class="fa-solid fa-bolt"></i> RUNNERBAG ACTUALIZACIÓN: BITCOIN $98,420 (+2.1%) &nbsp;&nbsp;•&nbsp;&nbsp; S&P 500 5,450 (+0.8%)
         </div>
     </div>
 
     <div id="inicio" class="pantalla activa">
-        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-            <p style="color: var(--accent); font-weight: 700; letter-spacing: 5px; margin-bottom: 20px; font-size: 14px;">PLATAFORMA FINTECH INTELIGENTE</p>
+        <div style="text-align: center;">
             <h1>Domina el Futuro de tus <span style="color: var(--accent);">Finanzas</span></h1>
-            <p style="color: var(--text-gray); font-size: 18px; margin-bottom: 40px; line-height: 1.8;">
-                Utiliza nuestro cerebro artificial para analizar el mercado y estructurar tus metas.
-            </p>
-            <button class="btn" style="width: auto; padding: 20px 50px; font-size: 16px;" onclick="ir('ia')">
-                <i class="fa-solid fa-microchip"></i> INICIAR CONSULTORÍA IA
-            </button>
+            <button class="btn" style="width: auto;" onclick="ir('ia')">INICIAR CONSULTORÍA IA</button>
         </div>
     </div>
 
     <div id="ia" class="pantalla">
         <div class="ai-card">
-            <div class="vidas-badge" id="vidas-display">
-                <i class="fa-solid fa-heart"></i> 5 CONSULTAS DISPONIBLES
-            </div>
+            <div class="vidas-badge" id="vidas-display"><i class="fa-solid fa-heart"></i> 5 CONSULTAS</div>
             <h2>Consultoría Inteligente</h2>
-            <input type="text" id="preguntaUsuario" placeholder="Ej: ¿Cómo organizo mis finanzas para este año?..." autocomplete="off">
-            <button class="btn" onclick="hablarConIA()">
-                <i class="fa-solid fa-brain"></i> ANALIZAR CON CEREBRO IA
-            </button>
-            <div id="respuestaContenedor" class="respuesta-box">
-                <div id="textoRespuesta"></div>
-            </div>
+            <input type="text" id="preguntaUsuario" placeholder="Escribe tu duda financiera...">
+            <button class="btn" onclick="hablarConIA()">ANALIZAR CON CEREBRO IA</button>
+            <div id="respuestaContenedor" class="respuesta-box"><div id="textoRespuesta"></div></div>
         </div>
     </div>
 
-    <!-- PANTALLAS EXTRA OCULTAS PARA RESUMIR ESPACIO -->
-    <div id="planes" class="pantalla"><h2 style="text-align:center;">Sección de Cursos</h2></div>
-    <div id="registro" class="pantalla"><h2 style="text-align:center;">Soporte</h2></div>
-
-    <footer><p>&copy; 2026 RunnerBag Fintech.</p></footer>
+    <div id="planes" class="pantalla"><h2>Sección de Cursos</h2></div>
+    <div id="registro" class="pantalla"><h2>Soporte Técnico</h2></div>
 
     <script>
-        // PON TU API KEY AQUÍ
-        const API_KEY = "AIzaSyDWzqfM9HZ8CaZtLGTep-bsuHK48OvZylA"; 
+        // PEGA AQUÍ TU LLAVE NUEVA (LA QUE LLAMASTE RunnerBag API Key)
+        const API_KEY = "AIzaSyALNgZAcPeD7zpur411nj-TGsEFbuMA2AM"; 
         let consultasRestantes = 5;
 
-        function ir(pantallaId) {
+        function ir(id) {
             document.querySelectorAll(".pantalla").forEach(p => p.classList.remove("activa"));
-            document.querySelectorAll(".menu a").forEach(e => e.classList.remove("activo"));
-            document.getElementById(pantallaId).classList.add("activa");
-            document.getElementById("nav-" + pantallaId).classList.add("activo");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.querySelectorAll(".menu a").forEach(a => a.classList.remove("activo"));
+            document.getElementById(id).classList.add("activa");
+            document.getElementById("nav-" + id).classList.add("activo");
         }
 
         async function hablarConIA() {
-            const inputElement = document.getElementById("preguntaUsuario");
-            const pregunta = inputElement.value.trim();
+            const input = document.getElementById("preguntaUsuario");
             const contenedor = document.getElementById("respuestaContenedor");
             const texto = document.getElementById("textoRespuesta");
-            const displayVidas = document.getElementById("vidas-display");
+            const vidas = document.getElementById("vidas-display");
 
-            if (!pregunta) { inputElement.focus(); return; }
-            if (consultasRestantes <= 0) { alert("Consultas agotadas."); return; }
+            if (!input.value.trim()) return;
+            if (consultasRestantes <= 0) return;
 
             contenedor.style.display = "block";
-            texto.innerHTML = "<i class='fa-solid fa-spinner spinner'></i> Conectando con Gemini Pro v1beta...";
-            inputElement.value = ""; 
+            texto.innerHTML = "Analizando datos...";
 
             try {
-                // AQUÍ ESTÁ EL CAMBIO EXACTO QUE PEDISTE: v1beta y gemini-pro
-                const urlApi = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
-
-                const respuestaHTTP = await fetch(urlApi, {
+                // MODELO ACTUALIZADO A GEMINI-1.5-FLASH
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+                
+                const res = await fetch(url, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: "Responde como el cerebro IA experto de RunnerBag: " + pregunta }] }]
+                        contents: [{ parts: [{ text: "Eres la IA de la fintech RunnerBag. Responde: " + input.value }] }]
                     })
                 });
 
-                const data = await respuestaHTTP.json();
+                const data = await res.json();
 
-                if (data.candidates && data.candidates[0].content) {
-                    const respuestaIA = data.candidates[0].content.parts[0].text;
+                if (data.candidates) {
+                    texto.innerHTML = data.candidates[0].content.parts[0].text;
                     consultasRestantes--;
-                    displayVidas.innerHTML = `<i class="fa-solid fa-heart"></i> ${consultasRestantes} CONSULTAS DISPONIBLES`;
-                    texto.innerHTML = respuestaIA.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong style="color:var(--accent)">$1</strong>');
-                } else if (data.error) {
-                    texto.innerHTML = `<strong style="color:#ef4444;">Error de Google:</strong> ${data.error.message}`;
+                    vidas.innerHTML = `<i class="fa-solid fa-heart"></i> ${consultasRestantes} CONSULTAS`;
+                } else {
+                    texto.innerHTML = "Error de respuesta: " + (data.error ? data.error.message : "Desconocido");
                 }
-
-            } catch (error) {
-                texto.innerHTML = `<strong style="color:#ef4444;">Fallo de red.</strong> Verifica la consola.`;
+            } catch (e) {
+                texto.innerHTML = "Error de conexión.";
             }
         }
     </script>
