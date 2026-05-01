@@ -2,22 +2,24 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <!-- Esta línea es el "secreto" para que se vea como app en el celular -->
+    <!-- Esta línea asegura que se adapte perfectamente a las pantallas de los celulares -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RunnerBag | Tu Copiloto Financiero</title>
     <style>
-        /* Estilo General (Modo Oscuro) */
+        /* Paleta de colores Fintech Profesional (Modo Oscuro) */
         :root {
-            --bg: #0f0f0f;
-            --card: #1a1a1a;
-            --accent: #00ffcc;
-            --text: #ffffff;
+            --bg-principal: #0d1117;
+            --bg-tarjeta: #161b22;
+            --color-acento: #00ffcc;
+            --texto-claro: #c9d1d9;
+            --texto-blanco: #ffffff;
+            --borde: #30363d;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-principal);
+            color: var(--texto-claro);
             margin: 0;
             padding: 0;
             display: flex;
@@ -25,163 +27,307 @@
             align-items: center;
         }
 
-        /* Navegación Responsiva */
-        nav {
+        /* Contenedor principal adaptable */
+        .contenedor {
             width: 100%;
-            background: #000;
-            padding: 15px 0;
+            max-width: 600px; /* Tamaño ideal para simular app en escritorio y verse bien en celular */
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+
+        /* Encabezado y Logo */
+        header {
             display: flex;
-            justify-content: space-around;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--accent);
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--borde);
+            margin-bottom: 20px;
+        }
+
+        .logo-icono {
+            font-size: 28px;
+            margin-right: 10px;
+        }
+
+        .logo-texto {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--texto-blanco);
+            letter-spacing: 1px;
+        }
+
+        /* Navegación */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            background-color: var(--bg-tarjeta);
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid var(--borde);
         }
 
         nav a {
-            color: var(--text);
+            color: var(--texto-blanco);
             text-decoration: none;
-            font-weight: bold;
-            font-size: 0.9rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        /* Contenedor Principal */
-        .container {
-            width: 90%;
-            max-width: 500px; /* Tamaño tipo celular */
-            padding: 20px;
+        nav a:hover {
+            color: var(--color-acento);
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .intro {
-            font-size: 0.9rem;
-            color: #aaa;
-            line-height: 1.4;
-        }
-
-        /* Tarjetas de Planes y Metales */
-        .card {
-            background: var(--card);
-            border-radius: 15px;
+        /* Tarjetas (Cards) */
+        .tarjeta {
+            background-color: var(--bg-tarjeta);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
             padding: 20px;
             margin-bottom: 20px;
-            border: 1px solid #333;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .market-data {
+        .tarjeta h3 {
+            color: var(--texto-blanco);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--borde);
+            padding-bottom: 10px;
+        }
+
+        /* Mercado en tiempo real (Metales) */
+        .mercado-grid {
             display: flex;
             justify-content: space-between;
-            text-align: center;
         }
 
-        .price {
-            color: var(--accent);
+        .mercado-item {
+            text-align: center;
+            width: 48%;
+            background: #0d1117;
+            padding: 15px 0;
+            border-radius: 8px;
+            border: 1px solid var(--borde);
+        }
+
+        .mercado-item span {
+            display: block;
+            font-size: 0.85rem;
+            color: #8b949e;
+        }
+
+        .mercado-precio {
             font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--color-acento);
+            margin-top: 5px;
+        }
+
+        /* Asistente IA Chatbot */
+        .chat-contenedor {
+            height: 250px;
+            overflow-y: auto;
+            background: #0d1117;
+            border: 1px solid var(--borde);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .mensaje-usuario {
+            color: var(--texto-blanco);
+            margin-bottom: 10px;
+        }
+
+        .mensaje-ia {
+            color: var(--color-acento);
+            margin-bottom: 10px;
+        }
+
+        /* Animación de carga con degradado */
+        .cargando-texto {
+            background: linear-gradient(90deg, #00ffcc, #00b3ff, #00ffcc);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            animation: brillo 2s linear infinite;
             font-weight: bold;
         }
 
-        .btn-plan {
-            display: block;
-            width: 100%;
+        @keyframes brillo {
+            to { background-position: 200% center; }
+        }
+
+        /* Controles del Chat */
+        .controles-chat {
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
             padding: 12px;
-            margin-top: 10px;
-            background: var(--accent);
+            border-radius: 8px;
+            border: 1px solid var(--borde);
+            background: #0d1117;
+            color: var(--texto-blanco);
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--color-acento);
+        }
+
+        button {
+            background-color: var(--color-acento);
             color: #000;
             border: none;
+            padding: 0 20px;
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
+            transition: background 0.2s;
         }
 
-        /* Ajustes para Celular (Media Queries) */
-        @media (max-width: 600px) {
-            nav a { font-size: 0.8rem; }
-            .container { width: 95%; }
+        button:hover {
+            background-color: #00e6b8;
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="#guia">GUÍA</a>
-        <a href="#planes">PLANES</a>
-        <a href="#ayuda">AYUDA</a>
-        <a href="#registro">REGISTRO</a>
-    </nav>
-
-    <div class="container">
+    <div class="contenedor">
+        
+        <!-- Header con Logo -->
         <header>
-            <h1>RunnerBag</h1>
-            <p class="intro">La plataforma fintech para los que no se rinden. Gestiona tus ahorros para el álbum, conciertos y tus proyectos tecnológicos.</p>
+            <div class="logo-icono">🏦</div>
+            <div class="logo-texto">RunnerBag</div>
         </header>
 
-        <!-- Sección de Metales (Precios en tiempo real simulados) -->
-        <div class="card">
-            <h3>Mercado de Metales (COP)</h3>
-            <div class="market-data">
-                <div>
-                    <p>Oro (gr)</p>
-                    <p class="price">$315.400</p>
+        <!-- Menú de Navegación -->
+        <nav>
+            <a href="#guia">Guía</a>
+            <a href="#planes">Planes</a>
+            <a href="#ayuda">Ayuda</a>
+            <a href="#registro">Registro</a>
+        </nav>
+
+        <!-- Sección de Mercado (Oro y Plata) -->
+        <div class="tarjeta">
+            <h3>Indicadores de Mercado (COP)</h3>
+            <div class="mercado-grid">
+                <div class="mercado-item">
+                    <span>Oro (gr)</span>
+                    <div class="mercado-precio">$315.400</div>
                 </div>
-                <div>
-                    <p>Plata (gr)</p>
-                    <p class="price">$3.850</p>
+                <div class="mercado-item">
+                    <span>Plata (gr)</span>
+                    <div class="mercado-precio">$3.850</div>
                 </div>
             </div>
         </div>
 
-        <!-- Sección de Planes -->
-        <div id="planes">
-            <h3>Mis Planes de Ahorro</h3>
+        <!-- Sección de Planes para Clientes -->
+        <div id="planes" class="tarjeta">
+            <h3>Planes de Inversión</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 15px;">Soluciones financieras adaptadas a las necesidades de tu portafolio.</p>
             
-            <div class="card">
-                <h4>Tour Run For Your Lives 2026</h4>
-                <p>Meta: $782.000 COP</p>
-                <div style="background:#333; height:10px; border-radius:5px;">
-                    <div style="background:var(--accent); width:15%; height:100%; border-radius:5px;"></div>
-                </div>
-                <button class="btn-plan">Gestionar Ahorro</button>
+            <div style="background: #0d1117; padding: 12px; border-radius: 8px; border: 1px solid var(--borde); margin-bottom: 10px;">
+                <strong style="color: var(--texto-blanco);">Fondo de Emergencia Flexible</strong>
+                <p style="font-size: 0.8rem; margin: 5px 0 0 0;">Liquidez inmediata con rendimientos diarios.</p>
             </div>
-
-            <div class="card">
-                <h4>Álbum Panini Mundial 2026</h4>
-                <p>Estado: Recaudando para caja de sobres</p>
-                <button class="btn-plan">Ver Álbum</button>
+            
+            <div style="background: #0d1117; padding: 12px; border-radius: 8px; border: 1px solid var(--borde);">
+                <strong style="color: var(--texto-blanco);">Ahorro Programado a Plazo</strong>
+                <p style="font-size: 0.8rem; margin: 5px 0 0 0;">Maximiza tu tasa de interés bloqueando el capital a 6, 12 o 24 meses.</p>
             </div>
         </div>
 
-        <!-- Chat con Gemini (Ayuda) -->
-        <div id="ayuda" class="card">
-            <h4>Consultar al Cerebro IA</h4>
-            <div id="chat-box" style="height: 100px; overflow-y: auto; font-size: 0.8rem; margin-bottom: 10px; color: #ccc;">
-                Hola. ¿En qué puedo ayudarte con tus finanzas hoy?
+        <!-- Chat Inteligente Integrado -->
+        <div id="ayuda" class="tarjeta">
+            <h3>Cerebro IA Financiero</h3>
+            
+            <div id="caja-chat" class="chat-contenedor">
+                <div class="mensaje-ia"><b>RunnerBag IA:</b> Bienvenido. Soy tu asesor financiero virtual. ¿En qué te puedo ayudar a proyectar hoy?</div>
             </div>
-            <input type="text" id="user-input" placeholder="Pregunta sobre ahorro..." style="width:70%; padding:8px; border-radius:5px; border:none;">
-            <button onclick="preguntarIA()" style="padding:8px; background:var(--accent); border:none; border-radius:5px;">Enviar</button>
+            
+            <div class="controles-chat">
+                <input type="text" id="input-usuario" placeholder="Escribe tu consulta financiera...">
+                <button onclick="enviarMensaje()">Enviar</button>
+            </div>
         </div>
+
     </div>
 
     <script>
-        // Aquí pegarás tu API Key cuando la tengas configurada y restringida
+        // ¡IMPORTANTE! Pega aquí tu nueva API Key configurada
         const API_KEY = "AIzaSyC74v2s_GhGADomcumyR5NhFLgtf8ErK8g";
 
-        async function preguntarIA() {
-            const input = document.getElementById('user-input');
-            const chatBox = document.getElementById('chat-box');
+        async function enviarMensaje() {
+            const inputElemento = document.getElementById('input-usuario');
+            const cajaChat = document.getElementById('caja-chat');
+            const texto = inputElemento.value.trim();
             
-            if(!input.value) return;
+            if(!texto) return;
 
-            chatBox.innerHTML += `<br><b>Tú:</b> ${input.value}`;
+            // 1. Mostrar el mensaje del usuario
+            cajaChat.innerHTML += `<div class="mensaje-usuario"><b>Tú:</b> ${texto}</div>`;
+            inputElemento.value = "";
             
-            // Simulación de carga (aquí va tu llamada a Gemini)
-            chatBox.innerHTML += `<br><b>IA:</b> Analizando mercado...`;
+            // 2. Mostrar estado de carga (con el degradado animado)
+            const idCarga = 'carga-' + Date.now();
+            cajaChat.innerHTML += `<div id="${idCarga}" class="cargando-texto">Procesando análisis...</div>`;
+            cajaChat.scrollTop = cajaChat.scrollHeight;
+
+            try {
+                // 3. Llamada REAL a la API de Gemini
+                const respuesta = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: texto }] }]
+                    })
+                });
+                
+                const datos = await respuesta.json();
+                
+                // 4. Eliminar el mensaje de carga
+                document.getElementById(idCarga).remove();
+                
+                // 5. Mostrar la respuesta
+                if (datos.candidates && datos.candidates[0].content.parts[0].text) {
+                    let textoRespuesta = datos.candidates[0].content.parts[0].text;
+                    // Dar formato a los saltos de línea
+                    textoRespuesta = textoRespuesta.replace(/\n/g, "<br>");
+                    cajaChat.innerHTML += `<div class="mensaje-ia"><b>RunnerBag IA:</b><br>${textoRespuesta}</div>`;
+                } else {
+                    cajaChat.innerHTML += `<div class="mensaje-ia" style="color: #ff6b6b;"><b>Error:</b> No se pudo procesar la respuesta.</div>`;
+                }
+
+            } catch (error) {
+                document.getElementById(idCarga).remove();
+                cajaChat.innerHTML += `<div class="mensaje-ia" style="color: #ff6b6b;"><b>Error de sistema:</b> Revisa tu conexión o la API Key.</div>`;
+                console.error("Detalle del error:", error);
+            }
             
-            input.value = "";
+            // Mantener el scroll siempre abajo
+            cajaChat.scrollTop = cajaChat.scrollHeight;
         }
+
+        // Permitir enviar el mensaje presionando la tecla "Enter"
+        document.getElementById("input-usuario").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                enviarMensaje();
+            }
+        });
     </script>
 </body>
 </html>
